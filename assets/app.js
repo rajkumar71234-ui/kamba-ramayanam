@@ -114,7 +114,6 @@
     var last = store.get("last", null);
     var lastKd = last ? kandamOf(last.k) : null;
     var lastPd = lastKd ? padalamOf(lastKd, last.n) : null;
-    var bala = kandamOf(1);
     var html = '<section class="hero">' +
       "<h1>" + esc(META.site.title) + "</h1>" +
       '<p class="tag">' + esc(META.site.tagline) + "</p>" +
@@ -128,15 +127,6 @@
       html += '<div class="card continue"><div><small>கடைசியாகப் படித்தது</small><br><b>' +
         esc(lastKd.ta) + " · " + esc(lastPd.title) + "</b>" + (last.p ? " — பாடல் " + esc(last.p) : "") +
         '</div><a class="btn" href="' + padalamLink(lastKd, lastPd.n, last.p) + '">தொடர்ந்து படிக்க</a></div>';
-    }
-
-    if (bala && bala.padalams && bala.padalams.length) {
-      var f = bala.padalams[0];
-      html += '<h2 class="section">இப்போது படிக்கலாம்</h2>' +
-        '<a class="card feature" href="' + padalamLink(bala, f.n) + '">' +
-        '<img src="img/1/' + pad2(f.n) + '/chapter.svg" alt="" width="800" height="500">' +
-        '<div class="body"><div class="eyebrow">' + esc(bala.ta) + " · " + esc(padalamLabel(f)) + "</div>" +
-        "<h3>" + esc(f.title) + "</h3><p>" + esc(f.summary || "") + "</p></div></a>";
     }
 
     html += '<h2 class="section">ஆறு காண்டங்கள்</h2><div class="kandams">';

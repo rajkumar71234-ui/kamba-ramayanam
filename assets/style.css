@@ -80,17 +80,7 @@ h2.section { font-family: var(--ta-serif); font-size: 1.3rem; color: var(--accen
 
 /* cards */
 .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
-.feature { display: grid; grid-template-columns: 1fr; overflow: hidden; text-decoration: none; color: inherit; }
-.feature img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.feature .body { padding: 14px 16px 16px; }
 .eyebrow { font-size: .85rem; color: var(--accent); font-weight: 600; }
-.feature h3 { font-family: var(--ta-serif); margin: 4px 0 6px; font-size: 1.2rem; line-height: 1.4; }
-.feature p { margin: 0; color: var(--muted); font-size: .97rem; }
-@media (min-width: 680px) {
-  .feature { grid-template-columns: 1.1fr 1fr; }
-  .feature img { height: 100%; aspect-ratio: auto; }
-  .feature .body { padding: 20px 22px; align-self: center; }
-}
 
 .kandams { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 640px) { .kandams { grid-template-columns: 1fr 1fr; } }
