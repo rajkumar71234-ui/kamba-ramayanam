@@ -366,5 +366,235 @@
 580
 ],
 "alt": "தவச்சாலையில் கனிகளுடன் இராமனை வரவேற்கும் முதிய சவரி; வாழ்த்தும் இராமன், உடன் இலக்குவன்"
+},
+"4-1": {
+"bg": "lake",
+"figs": [
+"rama_hermit:think:sad",
+"lakshmana_hermit:speak"
+],
+"xs": [
+310,
+500
+],
+"alt": "தாமரைகள் நிறைந்த பம்பைப் பொய்கைக் கரையில் சீதையை நினைந்து வாடும் இராமன்; தேற்றும் இலக்குவன்"
+},
+"4-2": {
+"bg": "mountain",
+"figs": [
+"hanuman:namaste",
+"rama_hermit:bless",
+"lakshmana_hermit"
+],
+"alt": "மலைச்சாரலில் இராமனை வணங்கும் அனுமன்; வாழ்த்தும் இராமன், உடன் இலக்குவன்"
+},
+"4-3": {
+"bg": "mountain",
+"figs": [
+"hanuman:namaste",
+"sugriva:hug",
+"rama_hermit:hug:flip"
+],
+"xs": [
+170,
+380,
+560
+],
+"alt": "மலையில் இராமனும் சுக்கிரீவனும் தழுவி நட்புக் கொள்ள, அருகே அனுமன்"
+},
+"4-4": {
+"bg": "forest",
+"figs": [
+"rama_hermit:draw",
+"sugriva:raise:wonder",
+"lakshmana_hermit"
+],
+"xs": [
+180,
+500,
+650
+],
+"props": [
+[
+"arrows",
+380,
+170
+]
+],
+"alt": "ஏழு மராமரங்களைத் துளைக்க அம்பு தொடுக்கும் இராமன்; வியக்கும் சுக்கிரீவனும் இலக்குவனும்"
+},
+"4-5": {
+"bg": "mountain",
+"figs": [
+"rama_hermit",
+"lakshmana_hermit:walk",
+"sugriva:raise:wonder"
+],
+"props": [
+[
+"stone",
+660,
+470,
+1.0
+]
+],
+"alt": "மலைச்சாரலில் துந்துபியின் உடலைக் கால் விரலால் எற்றும் இலக்குவன்; பார்த்து நிற்கும் இராமனும் சுக்கிரீவனும்"
+},
+"4-6": {
+"bg": "mountain",
+"figs": [
+"sugriva:offer",
+"rama_hermit:chest:sad",
+"lakshmana_hermit:down:sad"
+],
+"alt": "சீதையின் அணிகலன்களைக் காட்டும் சுக்கிரீவன்; துயரத்துடன் நோக்கும் இராமனும் இலக்குவனும்"
+},
+"4-7": {
+"bg": "forest",
+"figs": [
+"rama_hermit:draw",
+"vali:raise:stern",
+"sugriva:raise:stern"
+],
+"xs": [
+150,
+470,
+650
+],
+"alt": "கிட்கிந்தை அருகே வாலியும் சுக்கிரீவனும் போரிட, மறைந்து நின்று அம்பு தொடுக்கும் இராமன்"
+},
+"4-8": {
+"bg": "court",
+"figs": [
+"lakshmana_hermit:bless",
+"sugriva:namaste:sit",
+"rama_hermit:speak",
+"hanuman:namaste"
+],
+"alt": "அரியணையில் முடிசூடிய சுக்கிரீவன்; அறிவுரை கூறும் இராமன், அருகே இலக்குவனும் அனுமனும்"
+},
+"4-9": {
+"bg": "mountain",
+"tm": "storm",
+"figs": [
+"rama_hermit:think:sad",
+"lakshmana_hermit:speak"
+],
+"xs": [
+310,
+500
+],
+"alt": "கார்மேகமும் மின்னலும் சூழ்ந்த மலையில் சீதையை நினைந்து வாடும் இராமன்; தேற்றும் இலக்குவன்"
+},
+"4-10": {
+"bg": "city",
+"figs": [
+"lakshmana_hermit:point:stern",
+"tara:namaste:happy",
+"sugriva:namaste"
+],
+"alt": "கிட்கிந்தை நகரில் சினந்து நிற்கும் இலக்குவனிடம் வணங்கிப் பேசும் தாரை; பின்னால் சுக்கிரீவன்"
+},
+"4-11": {
+"bg": "mountain",
+"figs": [
+"rama_hermit",
+"sugriva:point",
+"vanara:raise",
+"jambavan",
+"vanara:raise"
+],
+"alt": "மலைச்சாரலில் இராமனுக்குத் தன் வானரப் படையைக் காட்டும் சுக்கிரீவன்; சாம்பவானும் வானர வீரரும்"
+},
+"4-12": {
+"bg": "mountain",
+"figs": [
+"rama_hermit:give",
+"hanuman:namaste",
+"angada",
+"jambavan"
+],
+"props": [
+[
+"ring",
+240,
+250,
+0.8
+]
+],
+"alt": "தன் மோதிரத்தை அனுமனிடம் தரும் இராமன்; உடன் அங்கதனும் சாம்பவானும்"
+},
+"4-13": {
+"bg": "cave",
+"figs": [
+"angada",
+"hanuman:point",
+"vanara:wonder"
+],
+"xs": [
+170,
+400,
+630
+],
+"alt": "இருண்ட பிலத்தின் வாயிலில் அனுமனும் அங்கதனும் வானர வீரரும்"
+},
+"4-14": {
+"bg": "forest",
+"tm": "night",
+"figs": [
+"angada:raise:stern",
+"demon:raise",
+"hanuman"
+],
+"xs": [
+200,
+420,
+620
+],
+"alt": "பொய்கைக் கரையில் அசுரன் துமிரனை எதிர்க்கும் அங்கதன்; அருகே அனுமன்"
+},
+"4-15": {
+"bg": "shore",
+"figs": [
+"angada:namaste",
+"jambavan:speak",
+"hanuman"
+],
+"xs": [
+150,
+290,
+430
+],
+"props": [
+[
+"sampati",
+640,
+470,
+0.9
+]
+],
+"alt": "தென்கடற்கரையில் சிறகிழந்த முதிய கழுகு சம்பாதியுடன் பேசும் அங்கதன், சாம்பவான், அனுமன்"
+},
+"4-16": {
+"bg": "mountain",
+"figs": [
+"jambavan:speak",
+[
+"hanuman",
+470,
+486,
+2.15,
+"raise",
+"happy",
+false
+],
+"angada:raise"
+],
+"xs": [
+150,
+470,
+680
+],
+"alt": "மயேந்திர மலையில் பேருருக் கொண்டு நிற்கும் அனுமன்; புகழ்ந்து நிற்கும் சாம்பவானும் அங்கதனும்"
 }
 }
