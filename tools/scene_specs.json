@@ -155,5 +155,216 @@
 ]
 ],
 "alt": "இராமன் அளித்த பாதுகைகளைத் தலைமேல் தாங்கி நிற்கும் பரதன்; வாழ்த்தும் இராமன்"
+},
+"3-1": {
+"bg": "forest",
+"figs": [
+"rama_hermit:draw",
+"viradha:raise:stern",
+"lakshmana_hermit"
+],
+"xs": [
+180,
+470,
+660
+],
+"alt": "தண்டக வனத்தில் கைகளை உயர்த்தி வரும் விராதனை எதிர்க்கும் இராமனும் இலக்குவனும்"
+},
+"3-2": {
+"bg": "ashram",
+"figs": [
+"sage:bless",
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit:namaste"
+],
+"xs": [
+170,
+340,
+480,
+620
+],
+"props": [
+[
+"fire",
+720,
+480,
+0.9
+]
+],
+"alt": "தவச்சாலையில் வேள்வித் தீயின் அருகே இராமனை வாழ்த்தும் சரபங்க முனிவர்"
+},
+"3-3": {
+"bg": "ashram",
+"figs": [
+"agastya:give",
+"rama_hermit:namaste",
+"sita_hermit",
+"lakshmana_hermit"
+],
+"alt": "அகத்திய முனிவரிடமிருந்து தெய்வ வில்லைப் பெறும் இராமன்; உடன் சீதையும் இலக்குவனும்"
+},
+"3-4": {
+"bg": "forest",
+"figs": [
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit"
+],
+"xs": [
+140,
+270,
+390
+],
+"props": [
+[
+"jatayu",
+660,
+470,
+0.9
+]
+],
+"alt": "காட்டு வழியில் இராமனை வாழ்த்தும் கழுகரசன் சடாயு; வணங்கும் இராமன், சீதை, இலக்குவன்"
+},
+"3-5": {
+"bg": "panchavati",
+"figs": [
+"surpanakha_b:offer",
+"rama_hermit:speak",
+"sita_hermit:wonder",
+"lakshmana_hermit"
+],
+"xs": [
+160,
+330,
+470,
+610
+],
+"alt": "பஞ்சவடியில் அழகிய பெண் வடிவில் இராமனை அணுகும் சூர்ப்பணகை; பர்ணசாலையருகே சீதையும் இலக்குவனும்"
+},
+"3-6": {
+"bg": "battle",
+"figs": [
+"rama_hermit:draw",
+"khara:raise",
+"demon:raise"
+],
+"xs": [
+170,
+480,
+650
+],
+"alt": "போர்க்களத்தில் தனியாக நின்று அம்பு தொடுக்கும் இராமன்; எதிரே கரனும் அரக்கர்களும்"
+},
+"3-7": {
+"bg": "court",
+"figs": [
+"surpanakha:point:sad",
+"ravana:speak:sit"
+],
+"xs": [
+290,
+520
+],
+"alt": "இலங்கை அரசவையில் அரியணையில் இராவணன்; அவன் முன் முறையிடும் சூர்ப்பணகை"
+},
+"3-8": {
+"bg": "forest",
+"figs": [
+"sita_hermit:point:wonder",
+"rama_hermit:draw"
+],
+"xs": [
+170,
+330
+],
+"props": [
+[
+"deer",
+640,
+470
+]
+],
+"alt": "பொன் மானைச் சுட்டிக் காட்டும் சீதை; வில்லேந்தித் துரத்தும் இராமன்"
+},
+"3-9": {
+"bg": "panchavati",
+"figs": [
+"ravana_hermit:speak",
+"sita_hermit:chest:wonder"
+],
+"xs": [
+300,
+500
+],
+"alt": "பர்ணசாலை முன் தவசி வேடத்தில் வந்த இராவணனைக் கண்டு அஞ்சும் சீதை"
+},
+"3-10": {
+"bg": "forest",
+"tm": "evening",
+"figs": [
+"rama_hermit:namaste:sad",
+"lakshmana_hermit:namaste:sad"
+],
+"xs": [
+220,
+380
+],
+"props": [
+[
+"jatayu_down",
+600,
+482,
+1.0
+]
+],
+"alt": "சிறகு வெட்டுண்டு வீழ்ந்த சடாயுவின் அருகே துயரத்துடன் வணங்கும் இராமனும் இலக்குவனும்"
+},
+"3-11": {
+"bg": "forest",
+"tm": "night",
+"figs": [
+"lakshmana_hermit:draw",
+"demoness:raise"
+],
+"xs": [
+260,
+540
+],
+"alt": "இரவுக் காட்டில் அயோமுகி என்னும் அரக்கியை எதிர்க்கும் இலக்குவன்"
+},
+"3-12": {
+"bg": "forest",
+"figs": [
+"rama_hermit:draw",
+"lakshmana_hermit"
+],
+"xs": [
+150,
+300
+],
+"props": [
+[
+"kabandha",
+600,
+446,
+0.85
+]
+],
+"alt": "நீண்ட கைகளுடன் எதிர்ப்படும் தலையற்ற கவந்தனை எதிர்க்கும் இராமனும் இலக்குவனும்"
+},
+"3-13": {
+"bg": "ashram",
+"figs": [
+"sabari:offer:happy",
+"rama_hermit:bless",
+"lakshmana_hermit:namaste"
+],
+"xs": [
+230,
+420,
+580
+],
+"alt": "தவச்சாலையில் கனிகளுடன் இராமனை வரவேற்கும் முதிய சவரி; வாழ்த்தும் இராமன், உடன் இலக்குவன்"
 }
 }

@@ -399,8 +399,14 @@ def fig(key, pose='down', eye='happy', mk='smile', hold='', sitting=False, v=0, 
                hold=(None if hold == '' else hold))
 
 
-def put(svg_, s, x, yh, female=False, sitting=False, flip=False):
-    """Place a figure so that its head centre is at height yh."""
+BIG = {'jatayu': (.62, 236), 'sampati': (.62, 236), 'garuda': (.62, 220), 'kabandha': (.55, 240)}
+
+
+def put(svg_, s, x, yh, female=False, sitting=False, flip=False, key=None):
+    """Place a figure so that its head centre is at height yh. Birds and Kabandha stand on the ground instead."""
+    if key in BIG:
+        f, gy = BIG[key]
+        return G(svg_, x=x, y=gy, s=s * f, flip=flip)
     hy = (-121 if female else -128) + (34 if sitting else 0)
     return G(svg_, x=x, y=yh - hy * s, s=s, flip=flip)
 
@@ -1377,7 +1383,7 @@ def draw(n, pp, plan):
             x = 120 if poses[0] != 'draw' else 70
             if plan['acc'] and poses[0] != 'draw':
                 x = 112 if v % 2 else 128
-            out.append(put(fig(a, poses[0], eye, mk, v=v, hood=plan['place'] == 'milksea'), s, x, 110 if poses[0] != 'draw' else 120, female=fem))
+            out.append(put(fig(a, poses[0], eye, mk, v=v, hood=plan['place'] == 'milksea'), s, x, 110 if poses[0] != 'draw' else 120, female=fem, key=a))
         labels.append(NAME.get(a, F[a][1] if a in F else a))
     elif len(actors) >= 2:
         a, b = actors[:2]
@@ -1390,7 +1396,7 @@ def draw(n, pp, plan):
                 p = 'down'
             yh = 114 + (6 if fem else 0)
             figs.append(put(fig(k, p, eye, mk, sitting=sit, v=v + i * 2, hood=plan['place'] == 'milksea'), 1.34 if not sit else 1.15, 74 if i == 0 else 166,
-                            yh if not sit else 118, female=fem, sitting=sit, flip=(i == 0 and p not in ('hug',)) or (i == 1 and p == 'hug')))
+                            yh if not sit else 118, female=fem, sitting=sit, flip=((i == 0 and p not in ('hug',)) or (i == 1 and p == 'hug')) if k not in BIG else (i == 1), key=k))
         out += figs
         labels += [NAME.get(k, F[k][1] if k in F else k) for k in (a, b)]
     elif plan['main'] and not plan['combo']:
