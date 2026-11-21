@@ -205,7 +205,26 @@ h3.subhead::before { flex: 0 0 18px; }
 .pad b:not(.lbl) { color: #4c2a1c; font-weight: 700; }
 .vil .notes { font-size: .95em; }
 .vil .notes p { margin: 8px 0 0; }
-.quote { font-family: var(--ta-serif); color: var(--verse); background: #fbf6ee; border-radius: 10px; padding: 8px 12px; }
+.vil .notes > :first-child { margin-top: 0; }
+/* the word-by-word meaning, folded away under the விளக்கம் */
+details.padbox { margin: 10px 0 0; }
+details.padbox summary {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none;
+  font-size: .88rem; font-weight: 700; color: var(--accent-dark); background: #fff;
+  border: 1px solid #cfe0dd; border-radius: 99px; padding: 2px 14px 2px 10px;
+}
+details.padbox summary::-webkit-details-marker { display: none; }
+details.padbox summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; }
+details.padbox[open] summary::before { transform: rotate(90deg); }
+details.padbox summary small { font-weight: 400; color: var(--muted); }
+details.padbox summary:hover { background: var(--accent-soft); }
+details.padbox .pad { margin-top: 8px; }
+/* a verse quoted by the commentator (part of the விளக்கம், not Kamban's poem) */
+.quote {
+  color: #4f4438; background: #f6f2e9; border-left: 3px solid #cdb58a; border-radius: 0 10px 10px 0;
+  padding: 6px 12px 8px; margin: 10px 0 0; font-size: .93em; line-height: 1.7;
+}
+.quote .q-lbl { display: block; font-size: .74rem; font-weight: 700; color: #8a6a3a; margin-bottom: 2px; }
 .quote .line { display: block; }
 .vtools { clear: both; display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: flex-end; font-size: .8rem; margin-top: 8px; padding-top: 2px; }
 .vtools a, .vtools button { color: var(--muted); text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }

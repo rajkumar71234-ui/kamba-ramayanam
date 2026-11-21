@@ -202,23 +202,27 @@
     return '<a class="' + cls + '" href="' + padalamLink(kd, pd.n) + '"><small>' + label + "</small>" + esc(pd.title) + "</a>";
   }
 
-  // One poem: its picture (right), number and ▶ button, the verse, then விளக்கம் — the பதவுரை first, then the explanation.
+  // A verse the commentator quotes from another work (Nammalvar, Thirukkural ...): part of the விளக்கம், not Kamban's poem.
+  function quoteHtml(q) {
+    return '<div class="quote"><span class="q-lbl">மேற்கோள்</span>' +
+      q.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("") + "</div>";
+  }
+
+  // One poem: its picture (right), number and ▶ button, the verse, then its விளக்கம்,
+  // and below that the word-by-word பதவுரை, folded away until it is opened.
   function poemHtml(kd, d, it, metre) {
     var rep = issueUrl("பிழை: " + kd.ta + " பாடல் " + it.n,
       kd.ta + ", " + d.title + ", பாடல் " + it.n + "\n\nஎன்ன பிழை? (பாடல் / பதவுரை / விளக்கம் / ஓவியம்):\n\n");
     var lines = it.lines.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("");
     var play = Speech.ok ? ' data-play="' + it.n + '"' : "";
-    var notes = "";
-    if (it.notes && it.notes.length) {
-      notes = '<div class="notes">' + it.notes.map(function (x) {
-        if (x.q) return '<p class="quote">' + x.q.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("") + "</p>";
-        return "<p>" + rich(x.p) + "</p>";
-      }).join("") + "</div>";
-    }
     var vil = "";
-    if (it.pad || notes) {
-      vil = '<section class="vil" aria-label="பாடல் ' + it.n + ' விளக்கம்"><h4 class="vil-head">விளக்கம்</h4>' +
-        (it.pad ? '<div class="pad"><b class="lbl">பதவுரை</b>' + rich(it.pad) + "</div>" : "") + notes + "</section>";
+    if (it.notes && it.notes.length) {
+      vil = '<section class="vil" aria-label="பாடல் ' + it.n + ' விளக்கம்"><h4 class="vil-head">விளக்கம்</h4><div class="notes">' +
+        it.notes.map(function (x) { return x.q ? quoteHtml(x.q) : "<p>" + rich(x.p) + "</p>"; }).join("") + "</div></section>";
+    }
+    if (it.pad) {
+      vil += '<details class="padbox"><summary>பதவுரை <small>(சொற்பொருள்)</small></summary>' +
+        '<div class="pad">' + rich(it.pad) + "</div></details>";
     }
     return '<article class="card poem" id="p' + it.n + '">' +
       (it.pic ? '<figure class="poem-pic"' + play + '><img loading="lazy" decoding="async" src="' + esc(it.pic) + '" alt="' + esc(it.alt || "") +
@@ -272,7 +276,7 @@
     if (d.intro && d.intro.length) {
       html += '<details class="card intro"><summary>உரையாசிரியர் முன்னுரை</summary>' +
         d.intro.map(function (x) {
-          return x.q ? '<p class="quote">' + x.q.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("") + "</p>" : "<p>" + rich(x.p) + "</p>";
+          return x.q ? quoteHtml(x.q) : "<p>" + rich(x.p) + "</p>";
         }).join("") + "</details>";
     }
 
@@ -431,8 +435,8 @@
       $("plPlay").onclick = function () { if (st.paused) resume(); else pause(); };
     }
 
-    // What is read, in order. For each poem: its number, the poem, then விளக்கம் — the பதவுரை and the explanation —
-    // and then straight on to the next poem.
+    // What is read, in order. For each poem: its number, the poem, then its விளக்கம் (a quoted verse is announced
+    // as மேற்கோள்), and then straight on to the next poem. A poem with no விளக்கம் has its பதவுரை read instead.
     function build(mode, d) {
       st.items = []; st.groups = []; st.mode = mode;
       var ta = Speech.voiceFor("ta");
@@ -453,17 +457,17 @@
           st.groups.push({ id: "p" + it.n, n: it.n, start: st.items.length, label: "பாடல் " + it.n + " (" + (gi + 1) + " / " + poems.length + ")" });
           add(gi, "பாடல் " + it.n + ".", 0.95);
           it.lines.forEach(function (l) { add(gi, ttsTamil(l), 0.82); });
-          var hasNotes = it.notes && it.notes.length;
-          if (it.pad || hasNotes) add(gi, "விளக்கம்.", 0.95);
-          if (it.pad) {
+          if (it.notes && it.notes.length) {
+            add(gi, "விளக்கம்.", 0.95);
+            it.notes.forEach(function (n) {
+              if (n.q) {
+                add(gi, "மேற்கோள்.", 0.95);
+                n.q.forEach(function (l) { add(gi, ttsTamil(l), 0.85); });
+              } else sentences(ttsTamil(n.p)).forEach(function (x) { add(gi, x, 0.95); });
+            });
+          } else if (it.pad) {
             add(gi, "பதவுரை.", 0.95);
             sentences(ttsTamil(it.pad)).forEach(function (x) { add(gi, x, 0.95); });
-          }
-          if (hasNotes) {
-            it.notes.forEach(function (n) {
-              if (n.q) n.q.forEach(function (l) { add(gi, ttsTamil(l), 0.85); });
-              else sentences(ttsTamil(n.p)).forEach(function (x) { add(gi, x, 0.95); });
-            });
           }
         });
       }

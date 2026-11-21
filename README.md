@@ -3,12 +3,14 @@
 A free reading site for Kamban's **இராமாவதாரம்**, padalam by padalam:
 
 - a Tamil story summary (கதைச் சுருக்கம்) for every padalam,
-- every poem, with a விளக்கம் section under it: the word-by-word meaning (பதவுரை) first, then the commentary notes,
+- every poem, with its விளக்கம் (the commentary) right under it, and the word-by-word meaning (பதவுரை) folded away
+  below that — tap “பதவுரை” to open it. Verses the commentator quotes from other works are marked “மேற்கோள்”,
 - sub-headings and metre names as in the source edition,
 - simple cartoon-style pictures: one for every padalam, one for every scene in the opening padalams,
   and a small picture beside every one of the 1,312 poems,
 - read-aloud using the phone's own Tamil voice: tap a poem (or its ▶ கேட்க button) and it reads the poem and its
-  விளக்கம், then carries on to the next poems; previous / pause / next / stop in the player bar,
+  விளக்கம் (its பதவுரை when a poem has no விளக்கம்), then carries on to the next poems; previous / pause / next / stop
+  in the player bar,
 - a bar that stays at the top while reading, with the breadcrumb and the reading settings:
   speed (வேகம்), pitch (சுருதி) and text size. The settings are remembered on the device.
 
