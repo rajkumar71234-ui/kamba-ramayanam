@@ -76,7 +76,8 @@ def person(skin=SKIN_YOUNG, hair="bun", hair_color=BLACK_HAIR, beard=None, moust
            outfit="dhoti", cloth=OCHRE, cloth_d=OCHRE_D, sash=None, top=None,
            pose="down", sitting=False, eye="open", mouth_kind="smile", tilak=None,
            jewels=False, crown_kind=None, female=False, quiver=False, thread=False,
-           hold=None, flowers=False, old=False, big_head=1.0):
+           hold=None, flowers=False, old=False, big_head=1.0,
+           face=None, tail=False, hump=False, extra_heads=0):
     """A standing or seated person.
 
     hair: bun | jata | long | braid | turban | wild | none     beard: None | colour (long beard)
@@ -91,6 +92,11 @@ def person(skin=SKIN_YOUNG, hair="bun", hair_color=BLACK_HAIR, beard=None, moust
     if old:
         sx -= 1
     # --- things behind the body
+    if tail:          # a monkey's tail curling up behind
+        d_t = "M12,-46 C48,-40 60,-78 44,-108 C38,-120 48,-130 58,-122"
+        parts.append(P(d_t, stroke=OUT, sw=10) + P(d_t, stroke=skin, sw=6.5))
+    if hump:          # Manthara's hunched back
+        parts.append(E(-12, -100 if female else -106, 18, 16, cloth_d, sw=2.2))
     if quiver:
         parts.append(G(R(-6, -34, 12, 40, "#8a5a2b", stroke=OUT, sw=2, rx=4) +
                        P("M-3,-34 L-6,-46 M0,-34 L0,-48 M3,-34 L6,-46", stroke="#8a5a2b", sw=2) +
@@ -177,7 +183,29 @@ def person(skin=SKIN_YOUNG, hair="bun", hair_color=BLACK_HAIR, beard=None, moust
                     f"L{-hr+5},{head_y+16} Z", hair_color, sw=2))
         up.append(P(f"M{hr-2},{head_y-6} C{hr+7},{head_y+6} {hr+8},{head_y+18} {hr+3},{head_y+24} "
                     f"L{hr-5},{head_y+16} Z", hair_color, sw=2))
+    if extra_heads:   # Ravana: more crowned heads on each side, behind the main one
+        for kk in range(extra_heads, 0, -1):
+            r2 = hr * (0.84 - 0.05 * (kk - 1))
+            for side in (-1, 1):
+                hx = side * (hr * 1.2 + (kk - 1) * hr * 0.92)
+                hd = (C(0, 0, r2, skin) + P(f"M{-r2},{-2} C{-r2},{-r2-3} {r2},{-r2-3} {r2},{-2} C{r2*0.6},{-9} {-r2*0.6},{-9} {-r2},{-2} Z",
+                                            hair_color, sw=1.8) +
+                      eyes(0, 0, r2, eye) + mouth(0, r2 * 0.62, mouth_kind if mouth_kind != "calm" else "smile") +
+                      (P(f"M-7,{r2*0.42} Q-3,{r2*0.3} 0,{r2*0.4} Q3,{r2*0.3} 7,{r2*0.42}", moustache, sw=1.2) if moustache else "") +
+                      crown("small", y=int(-r2 + 5)))
+                up.append(G(hd, x=hx, y=head_y + 3 + 3 * kk))
+    if face == "monkey":     # round ears
+        up += [C(-hr * 1.02, head_y, hr * 0.36, skin, sw=2), C(-hr * 1.02, head_y, hr * 0.18, "#efd2a8", stroke="none"),
+               C(hr * 1.02, head_y, hr * 0.36, skin, sw=2), C(hr * 1.02, head_y, hr * 0.18, "#efd2a8", stroke="none")]
+    elif face == "bear":
+        up += [C(-hr * 0.72, head_y - hr * 0.86, hr * 0.3, skin, sw=2), C(hr * 0.72, head_y - hr * 0.86, hr * 0.3, skin, sw=2)]
     up.append(C(0, head_y, hr, skin))
+    if face == "monkey":     # light face and muzzle
+        up.append(E(0, head_y - hr * 0.12, hr * 0.72, hr * 0.42, "#efd2a8", stroke="none"))
+        up.append(E(0, head_y + hr * 0.4, hr * 0.6, hr * 0.46, "#efd2a8", sw=1.8))
+    elif face == "bear":
+        up.append(E(0, head_y + hr * 0.42, hr * 0.5, hr * 0.38, "#d2b08a", sw=1.8))
+        up.append(E(0, head_y + hr * 0.2, hr * 0.17, hr * 0.12, "#2a1c14", stroke="none"))
     # hair
     top_head = head_y - hr
     if hair in ("bun", "braid", "long", "jata"):

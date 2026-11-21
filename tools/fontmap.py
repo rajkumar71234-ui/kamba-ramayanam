@@ -5,8 +5,8 @@ The PDF was exported from Word 2016. Its ToUnicode tables are wrong for many Tam
 The embedded Vijaya fonts still carry their own cmap and GSUB (ligature) tables, so the real
 character(s) behind each glyph id can be recovered from the font itself.
 
-Usage (from the repo root):  python3 tools/fontmap.py <book.pdf>
-Writes work/g2u.json  {font name: {glyph id: text}}
+Usage (from the repo root):  python3 tools/fontmap.py <book.pdf> [work dir, default work]
+Writes <work dir>/g2u.json  {font name: {glyph id: text}}
 Needs: pip install pymupdf fonttools
 """
 import collections, io, json, sys
@@ -72,8 +72,9 @@ def main():
         out[name] = final
         fixed = sum(1 for g, c in used.items() if g in g2u and set(c) != {g2u[g]})
         print(f'{name}: {len(used)} glyphs used, {fixed} corrected from the font tables')
-    (ROOT / 'work').mkdir(exist_ok=True)
-    (ROOT / 'work' / 'g2u.json').write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding='utf-8')
+    wd = ROOT / (sys.argv[2] if len(sys.argv) > 2 else 'work')
+    wd.mkdir(parents=True, exist_ok=True)
+    (wd / 'g2u.json').write_text(json.dumps(out, ensure_ascii=False, indent=0), encoding='utf-8')
 
 
 if __name__ == '__main__':

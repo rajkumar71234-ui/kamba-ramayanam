@@ -16,8 +16,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE_NOTE = ("பாடல்களும் பதவுரை, விளக்கமும்: கம்ப ராமாயணம் — பால காண்டம், உரையுடன் கூடிய பதிப்பு (மூல PDF). "
+SOURCE_NOTE = ("பாடல்களும் பதவுரை, விளக்கமும்: கம்ப ராமாயணம் — {kandam}, உரையுடன் கூடிய பதிப்பு (மூல PDF). "
                "கதைச் சுருக்கமும் ஓவியங்களும் இந்தத் தளத்துக்காகப் புதிதாக உருவாக்கப்பட்டவை.")
+KANDAM_TA = {1: 'பால காண்டம்', 2: 'அயோத்தியா காண்டம்', 3: 'ஆரணிய காண்டம்', 4: 'கிட்கிந்தா காண்டம்',
+             5: 'சுந்தர காண்டம்', 6: 'யுத்த காண்டம்'}
 
 
 def build_padalam(k, n, errors):
@@ -66,7 +68,7 @@ def build_padalam(k, n, errors):
         'intro': src['intro'],
         'items': items,
         'from': src['from'], 'to': src['to'],
-        'source': SOURCE_NOTE,
+        'source': SOURCE_NOTE.format(kandam=KANDAM_TA.get(k, '')),
     }
     out = ROOT / 'data' / str(k) / f'{n:02d}.json'
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -90,7 +92,11 @@ def main():
             if info:
                 pads.append(info)
         kd['padalams'] = pads
-        kd['poems'] = sum(x['to'] - x['from'] + 1 for x in pads)
+        if not pads:
+            continue
+        kd['from'], kd['to'] = pads[0]['from'], pads[-1]['to']
+        kd['poems'] = sum(len([1 for it in json.loads((ROOT / 'data' / str(k) / f"{x['n']:02d}.json").read_text(encoding='utf-8'))['items']
+                               if it['type'] == 'poem']) for x in pads)
     (ROOT / 'data' / 'kandams.json').write_text(json.dumps(site, ensure_ascii=False, indent=1), encoding='utf-8')
     for e in errors:
         print('!!', e)

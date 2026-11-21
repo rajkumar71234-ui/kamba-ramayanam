@@ -18,6 +18,7 @@ from art import *            # noqa: F401,F403
 from kit import *            # noqa: F401,F403
 from art import valmiki as valmiki_fig, brahma as brahma_fig, crane
 from art_bala import blossom_tree, gopuram, leaf_meal, mirror, olai_stack, splash
+import kit_more as KM
 from poem_subjects import features, F
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -239,12 +240,64 @@ WOMEN_CLOTH = [(TEAL_CLOTH, TEAL_CLOTH_D, GOLD), (PINK_CLOTH, PINK_CLOTH_D, GOLD
                (BLUE_CLOTH, BLUE_CLOTH_D, PINK_CLOTH), (GREEN_CLOTH, GREEN_CLOTH_D, GOLD), (SAFFRON, SAFFRON_D, GREEN_CLOTH)]
 KING_CLOTH = [(ROYAL_RED, ROYAL_RED_D), (BLUE_CLOTH, BLUE_CLOTH_D), (GREEN_CLOTH, GREEN_CLOTH_D), (PURPLE_CLOTH, PURPLE_CLOTH_D)]
 MAN_TOP = [OCHRE, TEAL_CLOTH, PINK_CLOTH, GREEN_CLOTH, "#e9dfc8"]
-FEMALE = {'sita', 'women', 'queen', 'ahalya', 'thadagai', 'musicians'}
+FEMALE = {'sita', 'women', 'queen', 'ahalya', 'thadagai', 'musicians', 'kaikeyi', 'manthara', 'surpanakha', 'sabari',
+          'tara', 'mandodari', 'trijata'}
 HOLDS = {'dasaratha', 'janaka', 'vasishtha', 'vishwamitra', 'kamban', 'rama', 'lakshmana', 'sita', 'parasurama', 'gautama'}
+
+
+CUR = {'k': 1}
+HERMIT = {'on': False}      # Rama, Sita, Lakshmana and Bharata wear bark cloth in the forest years
+BIRDS = ('jatayu', 'sampati', 'garuda')
 
 
 def fig(key, pose='down', eye='happy', mk='smile', hold='', sitting=False, v=0, hood=False):
     """One figure, feet (or seat) at (0,0). hold='' means 'the usual thing for this person'."""
+    if HERMIT['on'] and key in ('rama', 'lakshmana', 'sita', 'bharata'):
+        h = hold if hold != '' else ('bow' if key in ('rama', 'lakshmana') else None)
+        if pose != 'down':
+            h = None
+        if key == 'sita':
+            return person(skin=SKIN_WOMAN, hair='braid', outfit='saree', cloth=BARK_L, cloth_d=BARK_D, top=BARK, pose=pose,
+                          sitting=sitting, eye=eye, mouth_kind=mk, tilak='bindi', female=True, flowers=True)
+        skin = {'rama': RAMA_BLUE, 'lakshmana': SKIN_GOLD, 'bharata': RAMA_BLUE_D}[key]
+        return person(skin=skin, hair='jata', outfit='bark', cloth=BARK, cloth_d=BARK_D, pose=pose, sitting=sitting, eye=eye,
+                      mouth_kind=mk, tilak='namam', quiver=(h == 'bow'), hold=h, thread=True)
+    extra = {
+        'kaikeyi': lambda: KM.kaikeyi(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'manthara': lambda: KM.manthara(pose=pose if pose != 'down' else 'point', eye=eye if eye != 'happy' else 'stern', mk='open'),
+        'guha': lambda: KM.guha(pose=pose, eye=eye, mk=mk, sitting=sitting, hold='bow' if pose == 'down' else None),
+        'sumantra': lambda: KM.sumantra(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'surpanakha': lambda: KM.surpanakha(pose=pose, eye=eye, mk=mk, beautiful=(v % 3 == 0)),
+        'khara': lambda: KM.khara(pose=pose, hold='sword' if pose == 'down' else None),
+        'ravana': lambda: KM.ravana(pose=pose, eye=eye if eye != 'happy' else 'stern', mk=mk, sitting=sitting,
+                                    hold='sword' if pose == 'down' else None),
+        'maricha': lambda: KM.rakshasa(pose=pose, hold=None, eye=eye, skin='#6a6a8a'),
+        'viradha': lambda: KM.viradha(pose=pose if pose != 'down' else 'raise'),
+        'sabari': lambda: KM.sabari(pose=pose if pose != 'down' else 'namaste', eye=eye, mk=mk, sitting=sitting),
+        'agastya': lambda: KM.agastya(pose=pose if pose != 'down' else 'bless', eye=eye, mk=mk, sitting=sitting),
+        'hanuman': lambda: KM.hanuman(pose=pose, eye=eye, mk=mk, sitting=sitting, hold='mace' if pose == 'down' else None),
+        'sugriva': lambda: KM.sugriva(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'vali': lambda: KM.vali(pose=pose, eye=eye if eye != 'happy' else 'stern', mk=mk, sitting=sitting),
+        'tara': lambda: KM.tara(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'angada': lambda: KM.angada(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'jambavan': lambda: KM.jambavan(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'nala': lambda: KM.nala(pose=pose, eye=eye, mk=mk),
+        'vanara': lambda: KM.vanara(pose=pose, eye=eye, mk=mk, skin=['#b9824a', '#a8784a', '#c39a62'][v % 3],
+                                    cloth=[SAFFRON, TEAL_CLOTH, GREEN_CLOTH][v % 3],
+                                    cloth_d=[SAFFRON_D, TEAL_CLOTH_D, GREEN_CLOTH_D][v % 3]),
+        'vibhishana': lambda: KM.vibhishana(pose=pose if pose != 'down' else 'namaste', eye=eye, mk=mk, sitting=sitting),
+        'kumbhakarna': lambda: KM.kumbhakarna(pose=pose, eye=eye if eye != 'happy' else 'stern', hold='trident' if pose == 'down' else None),
+        'indrajit': lambda: KM.indrajit(pose=pose, eye=eye if eye != 'happy' else 'stern', hold='bow' if pose == 'down' else None),
+        'mandodari': lambda: KM.mandodari(pose=pose, eye=eye, mk=mk, sitting=sitting),
+        'trijata': lambda: KM.trijata(pose=pose, eye=eye, mk=mk),
+        'samudra': lambda: KM.samudra(pose=pose if pose != 'down' else 'namaste', eye=eye, mk=mk),
+        'jatayu': lambda: G(KM.big_bird(wings='open' if pose != 'down' else 'closed'), x=-10, s=1.15),
+        'sampati': lambda: G(KM.big_bird(wings='none', color='#6a5a4a', wing='#4f4234'), x=-10, s=1.15),
+        'garuda': lambda: G(KM.big_bird(gold=True), x=-10, s=1.15),
+        'kabandha': lambda: G(KM.kabandha(), s=1.0),
+    }
+    if key in extra:
+        return extra[key]()
     if key == 'rama':
         h = 'bow' if hold == '' else hold
         if pose == 'draw':
@@ -566,6 +619,15 @@ def land(place, v, tm, lay, extra=()):
             out.append(P(f"M{k-36},50 Q{k},76 {k+36},50", stroke="#f28aa6", sw=4, stroke_dasharray="3 6"))
         if lay in ('none', 'two', 'thing'):
             out.append(fire_altar(120, 222, .42))
+    elif place == 'battle':
+        out.append(R(0, 150, T, 90, '#d8c49a'))
+        out.append(P('M0,150 L240,150', stroke='#b89a64', sw=2))
+        out.append(E(60, 162, 70, 14, '#eadcb8', stroke='none', opacity=.85))
+        out.append(E(190, 158, 60, 12, '#eadcb8', stroke='none', opacity=.85))
+        out.append(flag(18, 166, ROYAL_RED, .55, 76, v % 4))
+        out.append(flag(222, 166, '#3f3a52', .55, 76, (v + 2) % 4))
+        for x, y, r in ((40, 226, -18), (196, 232, 24), (120, 236, 8)):
+            out.append(G(P('M-14,0 L14,0', stroke='#8a5a2b', sw=2.4) + P('M14,-3 L21,0 L14,3 Z', '#cfd6dc', sw=1), x=x, y=y, rot=r))
     elif place == 'tents':
         out.append(mountain(120, 140, .7, "#a7bccb"))
         out.append(P("M0,140 C80,130 160,146 240,136 L240,240 L0,240 Z", "#a6cf8f", stroke="none"))
@@ -641,6 +703,8 @@ def animal_main(key, v, joy=False):
         return G(fish("#f08a3a", 2.2), x=80, y=170, rot=-25) + G(fish("#e2c040", 2.0, True), x=160, y=184, rot=20) + \
             G(fish("#e05a3a", 1.6), x=120, y=214) + splash(80, 150, 1.2)
     if key == 'deer':
+        if CUR['k'] == 3:
+            return G(KM.golden_deer(), x=110, y=222, s=1.9)
         return G(deer(), x=110, y=222, s=1.9)
     if key == 'monkey':
         return G(monkey(pose='wave'), x=120, y=214, s=2.6)
@@ -657,7 +721,8 @@ def animal_main(key, v, joy=False):
     return G(horse(), x=112, y=226, s=1.1)
 
 
-THING_PLACE = {'fire': 'yagna', 'yagna': 'yagna', 'boat': 'river', 'lotus': 'pond', 'flowers': 'garden', 'garland': 'palace',
+THING_PLACE = {'ring': 'mountain', 'chudamani': 'garden', 'padukas': 'court', 'bridge': 'sea', 'pushpaka': 'sky',
+               'fire': 'yagna', 'yagna': 'yagna', 'boat': 'river', 'lotus': 'pond', 'flowers': 'garden', 'garland': 'palace',
                'jewels': 'palace', 'crown': 'court', 'throne': 'court', 'umbrella': 'court', 'drum': 'city', 'music': 'palace',
                'lamp': 'palace', 'mirror': 'palace', 'food': 'palace', 'drink': 'palace', 'chariot': 'city', 'flags': 'city',
                'cradle': 'palace', 'birth': 'palace', 'leaf': 'ashram', 'stone': 'forest', 'weapons': 'city', 'conch': 'palace',
@@ -666,6 +731,16 @@ THING_PLACE = {'fire': 'yagna', 'yagna': 'yagna', 'boat': 'river', 'lotus': 'pon
 
 
 def thing_main(key, v, broken=False):
+    if key == 'ring':
+        return C(120, 130, 70, "url(#glow)", stroke="none") + G(KM.ring(), x=120, y=140, s=3.2)
+    if key == 'chudamani':
+        return C(120, 130, 70, "url(#glow)", stroke="none") + G(KM.chudamani(), x=120, y=140, s=3.4)
+    if key == 'padukas':
+        return G(cushion(130), x=120, y=200) + G(KM.padukas(), x=120, y=196, s=2.2)
+    if key == 'bridge':
+        return KM.bridge(-10, 250, 186, 3) + G(KM.vanara(pose='raise'), x=120, y=196, s=.5)
+    if key == 'pushpaka':
+        return G(KM.pushpaka(), x=120, y=170, s=.55)
     if key == 'bow':
         if broken:
             return (G(P("M0,-70 Q-26,-30 -6,0", stroke=OUT, sw=11) + P("M0,-70 Q-26,-30 -6,0", stroke="#6b4421", sw=7), x=86, y=200, rot=-30) +
@@ -735,7 +810,7 @@ def thing_main(key, v, broken=False):
     return ""
 
 
-ACC_SLOT = {'moon': 'sky', 'sun': 'sky', 'stars': 'sky', 'bees': 'sky', 'birds': 'sky', 'parrot': 'sky', 'cuckoo': 'sky',
+ACC_SLOT = {'ring': 'ground', 'chudamani': 'ground', 'padukas': 'ground', 'moon': 'sky', 'sun': 'sky', 'stars': 'sky', 'bees': 'sky', 'birds': 'sky', 'parrot': 'sky', 'cuckoo': 'sky',
             'rainbow': 'sky', 'music': 'sky', 'flowers': 'sky', 'discus': 'sky', 'conch': 'sky', 'cloud': 'sky', 'arrow': 'sky',
             'garland': 'sky', 'lotus': 'ground', 'swan': 'ground', 'fish': 'ground', 'lamp': 'ground', 'drum': 'ground',
             'jewels': 'ground', 'food': 'ground', 'drink': 'ground', 'mirror': 'ground', 'crown': 'ground', 'flags': 'ground',
@@ -823,6 +898,12 @@ def accent(key, x, y, tm):
         return G(bull(), x=x, y=y + 14, s=.45)
     if key == 'leaf':
         return G(palm_leaf(), x=x, y=y, s=.8)
+    if key == 'ring':
+        return G(KM.ring(), x=x, y=y, s=1.1)
+    if key == 'chudamani':
+        return G(KM.chudamani(), x=x, y=y, s=1.1)
+    if key == 'padukas':
+        return G(KM.padukas(), x=x, y=y + 14, s=.8)
     if key in ('farmers', 'women', 'men', 'people', 'brahmin', 'soldiers', 'musicians'):
         k2 = 'men' if key == 'people' else key
         pose = {'women': 'wave', 'musicians': 'raise', 'farmers': 'down'}.get(key, 'walk')
@@ -865,6 +946,57 @@ PAD = {
     22: dict(place='wedding', actors=['rama', 'sita'], king='janaka', sage='vasishtha', stick=3.0),
     23: dict(place='forest', actors=['parasurama'], king='dasaratha', sage='vasishtha'),
 }
+
+def _p(place, actors, king='dasaratha', sage='vasishtha', **kw):
+    d = dict(place=place, actors=actors, king=king, sage=sage, stick=kw.pop('stick', 2.4))
+    d.update(kw)
+    return d
+
+
+H = dict(hermit=True)
+PADS = {1: PAD, 2: {
+    1: _p('court', ['dasaratha']), 2: _p('palace', ['manthara'], time='night'), 3: _p('palace', ['kaikeyi'], time='night'),
+    4: _p('palace', ['rama']), 5: _p('forest', ['rama'], **H), 6: _p('river', ['rama', 'sita'], **H),
+    7: _p('river', ['guha', 'rama'], **H), 8: _p('mountain', ['rama', 'sita'], **H), 9: _p('city', ['bharata'], stick=2.0),
+    10: _p('forest', ['bharata'], **H), 11: _p('river', ['guha', 'bharata'], **H), 12: _p('mountain', ['bharata', 'rama'], **H),
+}, 3: {
+    1: _p('forest', ['rama', 'viradha'], king='rama', sage='sage', **H), 2: _p('ashram', ['rama'], king='rama', sage='sage', **H),
+    3: _p('ashram', ['agastya', 'rama'], king='rama', sage='agastya', **H), 4: _p('forest', ['jatayu', 'rama'], king='rama', sage='sage', **H),
+    5: _p('ashram', ['surpanakha', 'rama'], king='rama', sage='sage', **H), 6: _p('forest', ['rama', 'khara'], king='rama', sage='sage', **H),
+    7: _p('court', ['surpanakha', 'ravana'], king='ravana', sage='sage', **H), 8: _p('forest', ['ravana'], king='ravana', sage='sage', **H),
+    9: _p('ashram', ['ravana', 'sita'], king='ravana', sage='sage', **H), 10: _p('forest', ['jatayu', 'ravana'], king='ravana', sage='sage', **H),
+    11: _p('forest', ['lakshmana'], king='rama', sage='sage', **H), 12: _p('forest', ['kabandha', 'rama'], king='rama', sage='sage', **H),
+    13: _p('ashram', ['sabari', 'rama'], king='rama', sage='sage', **H),
+}, 4: {
+    1: _p('pond', ['rama', 'lakshmana'], king='rama', sage='sage', **H), 2: _p('mountain', ['hanuman', 'rama'], king='sugriva', **H),
+    3: _p('mountain', ['sugriva', 'rama'], king='sugriva', **H), 4: _p('forest', ['rama'], king='sugriva', **H),
+    5: _p('forest', ['rama'], king='sugriva', **H), 6: _p('mountain', ['sugriva', 'rama'], king='sugriva', **H),
+    7: _p('forest', ['vali', 'rama'], king='vali', **H), 8: _p('court', ['sugriva'], king='sugriva', **H),
+    9: _p('mountain', ['rama', 'lakshmana'], king='sugriva', time='storm', **H), 10: _p('city', ['lakshmana', 'tara'], king='sugriva', **H),
+    11: _p('mountain', ['sugriva', 'rama'], king='sugriva', **H), 12: _p('mountain', ['hanuman', 'rama'], king='sugriva', **H),
+    13: _p('forest', ['hanuman', 'angada'], king='sugriva', **H), 14: _p('forest', ['angada', 'hanuman'], king='sugriva', **H),
+    15: _p('mountain', ['sampati', 'angada'], king='sugriva', **H), 16: _p('mountain', ['hanuman', 'jambavan'], king='sugriva', **H),
+}, 5: {
+    1: _p('sea', ['hanuman'], king='ravana', **H), 2: _p('city', ['hanuman'], king='ravana', time='night', **H),
+    3: _p('garden', ['sita', 'ravana'], king='ravana', **H), 4: _p('garden', ['hanuman', 'sita'], king='ravana', **H),
+    5: _p('garden', ['sita', 'hanuman'], king='ravana', **H), 6: _p('garden', ['hanuman'], king='ravana', **H),
+    7: _p('garden', ['hanuman', 'demon'], king='ravana', **H), 8: _p('city', ['hanuman', 'demon'], king='ravana', **H),
+    9: _p('city', ['hanuman', 'demon'], king='ravana', **H), 10: _p('city', ['hanuman', 'demon'], king='ravana', **H),
+    11: _p('city', ['hanuman', 'indrajit'], king='ravana', **H), 12: _p('court', ['hanuman', 'ravana'], king='ravana', **H),
+    13: _p('city', ['hanuman'], king='ravana', **H), 14: _p('mountain', ['hanuman', 'rama'], king='sugriva', **H),
+}, 6: {}}
+_Y = ['sea:rama', 'court:ravana', 'court:vibhishana', 'sea:vibhishana,rama', 'sea:rama,vibhishana', 'sea:rama',
+      'sea:nala', 'court:ravana', 'mountain:rama', 'city:ravana', 'city:sugriva,ravana', 'battle:rama,sugriva',
+      'court:angada,ravana', 'battle:rama,ravana', 'battle:kumbhakarna,rama', 'garden:sita,ravana', 'battle:lakshmana,demon',
+      'battle:indrajit,lakshmana', 'battle:vanara,demon', 'battle:rama,demon', 'battle:indrajit', 'battle:sita,trijata',
+      'mountain:hanuman', 'palace:ravana', 'battle:indrajit', 'yagna:indrajit,lakshmana', 'battle:lakshmana,indrajit',
+      'court:ravana', 'city:ravana', 'battle:rama,demon', 'battle:lakshmana,ravana', 'battle:vanara', 'battle:ravana',
+      'battle:ravana', 'battle:rama', 'battle:rama,ravana', 'sky:rama,sita', 'court:rama,sita', 'court:rama,hanuman']
+for _i, _d in enumerate(_Y, start=1):
+    _pl, _a = _d.split(':')
+    _pl = {'battle': 'battle'}.get(_pl, _pl)
+    PADS[6][_i] = _p(_pl, _a.split(','), king='rama' if _i >= 37 else 'ravana', hermit=_i < 38, time='storm' if _i in (36,) else 'day')
+
 PLACE_FEATS = {
     'river': {'river': 1, 'water': .4, 'boat': .6, 'fish': .2},
     'sea': {'sea': .6, 'boat': .3},
@@ -881,6 +1013,7 @@ PLACE_FEATS = {
     'wedding': {'wedding': 1.3},
     'yagna': {'yagna': 1.2, 'fire': .3},
     'tents': {'tent': 1},
+    'battle': {'battle': .5, 'weapons': .5, 'arrow': .3, 'soldiers': .4},
     'sky': {},
     'ashram': {},
     'street': {},
@@ -888,7 +1021,7 @@ PLACE_FEATS = {
 PLACE_LABEL = {'river': 'ஆறு', 'sea': 'கடல்', 'milksea': 'பாற்கடல்', 'pond': 'பொய்கை', 'mountain': 'மலை', 'forest': 'காடு',
                'garden': 'சோலை', 'field': 'வயல்', 'desert': 'பாலை நிலம்', 'city': 'நகரம்', 'palace': 'அரண்மனை',
                'court': 'அரசவை', 'wedding': 'மணமண்டபம்', 'yagna': 'வேள்விச் சாலை', 'tents': 'பாசறை', 'sky': 'வானுலகம்',
-               'ashram': 'தவச்சாலை', 'street': 'வீதி'}
+               'ashram': 'தவச்சாலை', 'street': 'வீதி', 'battle': 'போர்க்களம்'}
 TIME_LABEL = {'night': 'இரவு', 'evening': 'மாலைப் பொழுது', 'dawn': 'விடியல்', 'storm': 'கருமேகம்'}
 NAME = {'king': 'மன்னன்', 'sage': 'முனிவர்', 'women': 'மகளிர்', 'men': 'ஆடவர்', 'farmers': 'உழவர்', 'soldiers': 'வீரர்கள்',
         'musicians': 'கலைஞர்', 'people': 'மக்கள்', 'brahmin': 'அந்தணர்', 'gods': 'தேவர்கள்'}
@@ -904,7 +1037,7 @@ def kinds(sc, kind):
 LAND_KEYS = ('river', 'sea', 'milksea', 'pond', 'mountain', 'waterfall', 'forest', 'garden', 'tree', 'paddy', 'sugarcane',
              'desert', 'city')
 OUTDOOR = {'river', 'sea', 'milksea', 'pond', 'mountain', 'forest', 'garden', 'field', 'desert', 'tents', 'ashram', 'sky',
-           'city', 'street', 'yagna', 'wedding'}
+           'city', 'street', 'yagna', 'wedding', 'battle'}
 WATERY = {'river', 'sea', 'pond', 'milksea', 'garden'}
 ROYAL = {'palace', 'court', 'city', 'street', 'wedding', 'tents'}
 ACC_OK = {
@@ -941,9 +1074,9 @@ OVERRIDE = {
 }
 
 
-def decide(n, pp, sc):
-    """Turn the feature scores of one poem into a picture plan."""
-    pad = PAD[pp]
+def decide(n, pp, sc, kdm=1):
+    """Turn the feature scores of one poem into a picture plan. pp is offset by 100 outside பால காண்டம்."""
+    pad = PADS[kdm][pp if kdm == 1 else pp - 100]
     w = pad.get('w', {})
     sc = dict(sc)
 
@@ -971,6 +1104,14 @@ def decide(n, pp, sc):
         if k in sc:
             sc[k] *= .6
     fold('vanara', 'monkey')
+    # people who only appear later in the story are just being mentioned: leave them out of the picture
+    if kdm < 4:
+        for x in ('vali', 'sugriva', 'hanuman', 'angada', 'jambavan', 'tara', 'nala', 'sampati'):
+            sc.pop(x, None)
+    if kdm < 3:
+        for x in ('ravana', 'vibhishana', 'kumbhakarna', 'indrajit', 'mandodari', 'trijata', 'surpanakha', 'khara',
+                  'maricha', 'jatayu', 'sabari', 'kabandha', 'viradha', 'agastya'):
+            sc.pop(x, None)
     for k in list(sc):
         kd = F[k][0]
         if kd in w:
@@ -1033,7 +1174,7 @@ def decide(n, pp, sc):
         ps['sea'] += .4 * sc.get('sea', 0)
     if actors and actors[0] == 'sita' and pp in (10, 21) and not (sc.get('garden', 0) or sc.get('pond', 0)):
         ps['palace'] += 2.5
-    if pp < 19:
+    if pp < 19 or kdm > 1:
         ps['wedding'] *= .3
     if 'milksea' in sc or (pp == 5 and sc.get('vishnu', 0) >= 1 and sc.get('sea', 0) >= 1):
         ps['milksea'] += 3
@@ -1055,7 +1196,7 @@ def decide(n, pp, sc):
     storm_push = False
     if pad.get('land') and place in INDOOR:
         place = pad['place']
-    if actors and actors[0] in ('demon', 'thadagai') and place in INDOOR:
+    if kdm == 1 and actors and actors[0] in ('demon', 'thadagai') and place in INDOOR:
         place = 'mountain' if pp == 5 else 'forest'
         storm_push = True
     tm = pad.get('time', 'day')
@@ -1099,7 +1240,7 @@ def decide(n, pp, sc):
         p = 'down'
         if mood.get('worship', 0) >= 1 and a not in DEITIES + ('vishnu',):
             p = 'namaste'
-        elif mood.get('battle', 0) >= 1 and a in ('rama', 'lakshmana') and (sc.get('arrow', 0) + sc.get('bow', 0)) >= 1 and pp in (7, 8, 23):
+        elif mood.get('battle', 0) >= 1 and a in ('rama', 'lakshmana') and (sc.get('arrow', 0) + sc.get('bow', 0)) >= 1 and (pp in (7, 8, 23) if kdm == 1 else kdm in (3, 6)):
             p = 'draw'
         elif act.get('hug', 0) >= 1 and len(actors) == 2 and (pp == 19 or not (set(actors) & FEMALE)) and not (set(actors) & {'women', 'men', 'people', 'soldiers', 'farmers'}):
             p = 'hug'
@@ -1348,7 +1489,7 @@ def run(k, only=None):
     for pp in range(0, 100):
         src = os.path.join(ROOT, 'content', str(k), f'{pp:02d}.src.json')
         if not os.path.exists(src):
-            break
+            continue
         if only and pp not in only:
             continue
         data = json.load(open(src, encoding='utf-8'))
@@ -1362,8 +1503,11 @@ def run(k, only=None):
                 continue
             n = it['n']
             sc = features(it, head)
-            plan = decide(n, pp, sc)
-            svg_, alt = draw(n, pp, plan)
+            ppx = pp if k == 1 else 100 + pp
+            HERMIT['on'] = PADS[k][pp].get('hermit', False)
+            CUR['k'] = k
+            plan = decide(n, ppx, sc, k)
+            svg_, alt = draw(n, ppx, plan)
             with open(os.path.join(ROOT, 'img', str(k), f'{pp:02d}', f'p{n}.svg'), 'w', encoding='utf-8') as fh:
                 fh.write(svg_)
             out_meta[str(n)] = {'pic': f'img/{k}/{pp:02d}/p{n}.svg', 'alt': alt}

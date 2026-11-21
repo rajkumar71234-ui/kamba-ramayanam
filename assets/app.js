@@ -66,6 +66,21 @@
     for (var i = 0; i < list.length; i++) if (p >= list[i].from && p <= list[i].to) return list[i];
     return null;
   }
+  // the padalam that holds poem p: in kandam kd first, then in any kandam
+  function findPoem(p, kd) {
+    var order = kd ? [kd].concat(META.kandams) : META.kandams;
+    for (var i = 0; i < order.length; i++) {
+      var pd = padalamOfPoem(order[i], p);
+      if (pd) return { kd: order[i], pd: pd };
+    }
+    return null;
+  }
+  // "24 பகுதிகள் (பாயிரம் + 23 படலங்கள்)" for பால காண்டம், "13 படலங்கள்" for the others
+  function partsLabel(kd) {
+    var list = kd.padalams || [];
+    if (list.length && list[0].n === 0) return list.length + " பகுதிகள் (பாயிரம் + " + (list.length - 1) + " படலங்கள்)";
+    return list.length + " படலங்கள்";
+  }
   function kandamLink(kd) { return "#" + kd.slug; }
   function padalamLink(kd, n, p) { return "#" + kd.slug + "-" + n + (p ? "-p" + p : ""); }
   function padalamLabel(pd) { return pd.n === 0 ? "பாயிரம்" : "படலம் " + pd.n; }
@@ -136,7 +151,7 @@
         '<span class="num">' + kd.n + "</span><h3>" + esc(kd.ta) + "</h3>" +
         "<p>" + esc(kd.about) + "</p>" +
         '<div class="progress" aria-hidden="true"><i style="width:' + (ready ? 100 : 0) + '%"></i></div>' +
-        '<div class="progress-label">' + (ready ? ready + " பகுதிகள் · " + kd.poems + " பாடல்கள் · படிக்கத் தயார்" : "விரைவில்") + "</div></a>";
+        '<div class="progress-label">' + (ready ? partsLabel(kd).replace(/ \(.*\)/, "") + " · " + kd.poems + " பாடல்கள் · படிக்கத் தயார்" : "விரைவில்") + "</div></a>";
     });
     html += "</div>";
     app.innerHTML = html;
@@ -153,9 +168,10 @@
       app.innerHTML = html + '<div class="card error">இந்தக் காண்டம் இன்னும் தயாராகவில்லை — விரைவில் சேர்க்கப்படும்.</div>';
       return;
     }
-    html += '<p class="legend">' + list.length + " பகுதிகள் (பாயிரம் + " + (list.length - 1) + " படலங்கள்) · " + kd.poems + " பாடல்கள்</p>" +
+    var lo = kd.from || 1, hi = kd.to || kd.poems;
+    html += '<p class="legend">' + partsLabel(kd) + " · " + kd.poems + " பாடல்கள் (பாடல் " + lo + "–" + hi + ")</p>" +
       '<form class="card goto" id="gotoForm"><label for="gotoNum">பாடல் எண்ணுக்குச் செல்ல</label>' +
-      '<input id="gotoNum" type="number" inputmode="numeric" min="1" max="' + kd.poems + '" placeholder="1 – ' + kd.poems + '">' +
+      '<input id="gotoNum" type="number" inputmode="numeric" min="1" max="10368" placeholder="' + lo + ' – ' + hi + '">' +
       '<button class="btn" type="submit">செல்</button></form>' +
       '<div class="padalams">';
     list.forEach(function (pd) {
@@ -171,8 +187,8 @@
     document.getElementById("gotoForm").onsubmit = function (e) {
       e.preventDefault();
       var p = parseInt(document.getElementById("gotoNum").value, 10);
-      var pd = padalamOfPoem(kd, p);
-      if (pd) location.hash = padalamLink(kd, pd.n, p);
+      var hit = findPoem(p, kd);      // poem numbers run on through all six kandams
+      if (hit) location.hash = padalamLink(hit.kd, hit.pd.n, p);
     };
   }
 
@@ -594,7 +610,10 @@
     var poem = m[3] ? parseInt(m[3], 10) : 0;
     var pd = null;
     if (m[2] != null) pd = padalamOf(kd, parseInt(m[2], 10));
-    else if (poem) pd = padalamOfPoem(kd, poem);
+    else if (poem) {
+      var hit = findPoem(poem, kd);
+      if (hit) { kd = hit.kd; pd = hit.pd; }
+    }
     if (!pd) { renderKandam(kd); window.scrollTo(0, 0); return; }
     var key = kd.n + "/" + pad2(pd.n);
     var go = function (d) { renderPadalam(kd, pd, d, poem); if (!poem) window.scrollTo(0, 0); };

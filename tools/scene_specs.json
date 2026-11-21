@@ -1,0 +1,159 @@
+{
+"2-1": {
+"bg": "court",
+"figs": [
+"vasishtha:bless",
+"dasaratha:speak:sit",
+"rama:namaste",
+"sumantra:namaste"
+],
+"props": [
+[
+"umbrella",
+380,
+150
+]
+],
+"alt": "அரசவையில் அமர்ந்து வசிட்டனிடமும் அமைச்சர்களிடமும் தன் கருத்தைச் சொல்லும் தயரதன்; வணங்கி நிற்கும் இராமன்"
+},
+"2-2": {
+"bg": "room",
+"tm": "night",
+"figs": [
+"manthara:point:stern",
+"kaikeyi:think:wonder"
+],
+"xs": [
+300,
+500
+],
+"alt": "அரண்மனையில் கைகேயியிடம் கையைச் சுட்டிப் பேசும் கூன் முதுகுக் கூனி; கேட்டு நிற்கும் கைகேயி"
+},
+"2-3": {
+"bg": "room",
+"tm": "night",
+"figs": [
+"dasaratha:namaste:sad",
+"kaikeyi:point:stern"
+],
+"xs": [
+300,
+520
+],
+"alt": "தரையில் கிடக்கும் கைகேயியிடம் கைகூப்பி இரந்து நிற்கும் தயரதன்; வரத்தில் உறுதியாக நிற்கும் கைகேயி"
+},
+"2-4": {
+"bg": "city",
+"figs": [
+"kausalya:namaste:sad",
+"rama_hermit:namaste",
+"sita_hermit:down:sad",
+"lakshmana_hermit"
+],
+"alt": "மரவுரி தரித்த இராமன், சீதை, இலக்குவன் நகர் நீங்க, கண்ணீருடன் வழியனுப்பும் கோசலை"
+},
+"2-5": {
+"bg": "forest",
+"tm": "night",
+"figs": [
+"sumantra:namaste:sad",
+"rama_hermit:walk",
+"sita_hermit:walk",
+"lakshmana_hermit:walk"
+],
+"alt": "நிலவொளியில் தேருடன் திரும்பும் சுமந்திரன்; காட்டு வழியே நடக்கும் இராமன், சீதை, இலக்குவன்"
+},
+"2-6": {
+"bg": "ganga",
+"figs": [
+"sage:bless",
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit"
+],
+"alt": "கங்கைக் கரையில் முனிவர்கள் வரவேற்க, மரவுரி தரித்த இராமன், சீதை, இலக்குவன்"
+},
+"2-7": {
+"bg": "ganga",
+"figs": [
+"guha:namaste",
+"rama_hermit:down",
+"sita_hermit:down",
+"lakshmana_hermit:down"
+],
+"xs": [
+170,
+330,
+450,
+600
+],
+"alt": "கங்கையில் நாவாய் செலுத்தும் குகன்; நாவாயில் இராமன், சீதை, இலக்குவன்"
+},
+"2-8": {
+"bg": "mountain",
+"figs": [
+"lakshmana_hermit:offer",
+"rama_hermit:down",
+"sita_hermit:down"
+],
+"alt": "சித்திரகூட மலையில் இலக்குவன் அமைத்த பர்ணசாலையின் முன் இராமனும் சீதையும்"
+},
+"2-9": {
+"bg": "city",
+"tm": "evening",
+"figs": [
+"vasishtha:bless:sad",
+"bharata:namaste:sad",
+"shatrughna:namaste:sad"
+],
+"props": [
+[
+"fire",
+620,
+470
+]
+],
+"alt": "ஈமப் பள்ளியின் அருகே துயரத்துடன் நிற்கும் பரதனும் சத்துருக்கனனும், அருகில் வசிட்டன்"
+},
+"2-10": {
+"bg": "forest",
+"figs": [
+"bharata_hermit:walk",
+"shatrughna:walk",
+"kausalya:down:sad",
+"soldier"
+],
+"alt": "மரவுரி தரித்து நடந்து செல்லும் பரதன்; பின்தொடரும் சத்துருக்கனனும் படையும்"
+},
+"2-11": {
+"bg": "ganga",
+"figs": [
+"guha:hug",
+"bharata_hermit:hug:sad",
+"shatrughna:namaste"
+],
+"xs": [
+260,
+420,
+600
+],
+"alt": "கங்கைக் கரையில் மரவுரி தரித்த பரதனைத் தழுவும் குகன்"
+},
+"2-12": {
+"bg": "mountain",
+"figs": [
+"rama_hermit:bless",
+"bharata_hermit:namaste:sad",
+"lakshmana_hermit",
+"vasishtha:bless"
+],
+"props": [
+[
+"padukas",
+"above:1",
+0.9
+]
+],
+"alt": "இராமன் அளித்த பாதுகைகளைத் தலைமேல் தாங்கி நிற்கும் பரதன்; வாழ்த்தும் இராமன்"
+}
+}
