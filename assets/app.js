@@ -37,6 +37,17 @@
     get: function (k, d) { try { var v = localStorage.getItem("kr:" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem("kr:" + k, JSON.stringify(v)); } catch (e) { /* ignore */ } }
   };
+  // How the voice reads: speed (× the normal pace) and pitch (1 = the voice's own). Kept between visits.
+  var SPEEDS = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2];
+  var PITCHES = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5];
+  function nearest(list, v) {
+    v = Number(v);
+    if (!isFinite(v)) return 1;
+    var best = list[0];
+    for (var i = 0; i < list.length; i++) if (Math.abs(list[i] - v) < Math.abs(best - v)) best = list[i];
+    return best;
+  }
+  var Voice = { speed: nearest(SPEEDS, store.get("speed", 1)), pitch: nearest(PITCHES, store.get("pitch", 1)) };
   function kandamOf(k) {
     for (var i = 0; i < META.kandams.length; i++) if (META.kandams[i].n === k) return META.kandams[i];
     return null;
@@ -71,8 +82,29 @@
   function crumbs(items) {
     return '<nav class="crumbs" aria-label="வழி">' + items.map(function (it, i) {
       var sep = i ? '<span class="sep">›</span>' : "";
-      return sep + (it.href ? '<a href="' + it.href + '">' + esc(it.text) + "</a>" : "<span>" + esc(it.text) + "</span>");
+      return sep + (it.href ? '<a href="' + it.href + '">' + esc(it.text) + "</a>" : '<span class="here">' + esc(it.text) + "</span>");
     }).join("") + "</nav>";
+  }
+  // The bar that stays at the top while reading: where you are, and (on padalam pages) the reading controls.
+  function topbar(items, extra) {
+    return '<div class="topbar" id="topbar">' + crumbs(items) + (extra || "") + "</div>";
+  }
+  function controlsHtml() {
+    function opts(list, cur, fmt) {
+      return list.map(function (v) {
+        return '<option value="' + v + '"' + (v === cur ? " selected" : "") + ">" + fmt(v) + "</option>";
+      }).join("");
+    }
+    var h = '<div class="controls" role="toolbar" aria-label="படிக்கும், கேட்கும் அமைப்பு">';
+    if (Speech.ok) {
+      h += '<label class="ctl" title="குரல் படிக்கும் வேகம்"><span>வேகம்</span><select id="spSel">' +
+        opts(SPEEDS, Voice.speed, function (v) { return v + "×"; }) + "</select></label>" +
+        '<label class="ctl" title="குரலின் சுருதி (தாழ்வு / உயர்வு)"><span>சுருதி</span><select id="ptSel">' +
+        opts(PITCHES, Voice.pitch, function (v) { return v.toFixed(1); }) + "</select></label>";
+    }
+    h += '<div class="seg" aria-label="எழுத்து அளவு"><button type="button" id="fsDown" aria-label="எழுத்தைச் சிறிதாக்கு">அ−</button>' +
+      '<button type="button" id="fsUp" aria-label="எழுத்தைப் பெரிதாக்கு">அ+</button></div></div>';
+    return h;
   }
   function setTitle(t) { document.title = t ? t + " · " + META.site.title : META.site.title + " — பாடல்கள், தமிழ் உரை, ஓவியங்கள்"; }
 
@@ -124,7 +156,7 @@
   function renderKandam(kd) {
     setTitle(kd.ta);
     var list = kd.padalams || [];
-    var html = crumbs([{ text: "முகப்பு", href: "#home" }, { text: kd.ta }]) +
+    var html = topbar([{ text: "முகப்பு", href: "#home" }, { text: kd.ta }]) +
       '<h1 class="kandam-title">' + esc(kd.ta) + "</h1>" +
       "<p>" + esc(kd.about) + "</p>";
     if (!list.length) {
@@ -170,25 +202,34 @@
     return '<a class="' + cls + '" href="' + padalamLink(kd, pd.n) + '"><small>' + label + "</small>" + esc(pd.title) + "</a>";
   }
 
-  function poemHtml(kd, d, it, metre, showNotes) {
+  // One poem: its picture (right), number and ▶ button, the verse, then விளக்கம் — the பதவுரை first, then the explanation.
+  function poemHtml(kd, d, it, metre) {
     var rep = issueUrl("பிழை: " + kd.ta + " பாடல் " + it.n,
       kd.ta + ", " + d.title + ", பாடல் " + it.n + "\n\nஎன்ன பிழை? (பாடல் / பதவுரை / விளக்கம் / ஓவியம்):\n\n");
     var lines = it.lines.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("");
+    var play = Speech.ok ? ' data-play="' + it.n + '"' : "";
     var notes = "";
     if (it.notes && it.notes.length) {
-      notes = '<details class="notes"' + (showNotes ? " open" : "") + "><summary>விளக்கம்</summary>" +
-        it.notes.map(function (x) {
-          if (x.q) return '<p class="quote">' + x.q.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("") + "</p>";
-          return "<p>" + rich(x.p) + "</p>";
-        }).join("") + "</details>";
+      notes = '<div class="notes">' + it.notes.map(function (x) {
+        if (x.q) return '<p class="quote">' + x.q.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("") + "</p>";
+        return "<p>" + rich(x.p) + "</p>";
+      }).join("") + "</div>";
+    }
+    var vil = "";
+    if (it.pad || notes) {
+      vil = '<section class="vil" aria-label="பாடல் ' + it.n + ' விளக்கம்"><h4 class="vil-head">விளக்கம்</h4>' +
+        (it.pad ? '<div class="pad"><b class="lbl">பதவுரை</b>' + rich(it.pad) + "</div>" : "") + notes + "</section>";
     }
     return '<article class="card poem" id="p' + it.n + '">' +
-      '<div class="poem-top"><span class="vnum">பாடல் ' + it.n + "</span>" + (metre ? '<span class="metre">' + esc(metre) + "</span>" : "") + "</div>" +
-      '<p class="verse' + (it.lines.length === 8 ? " eight" : "") + '">' + lines + "</p>" +
-      (it.pad ? '<div class="pad"><b class="lbl">பதவுரை</b>' + rich(it.pad) + "</div>" : "") +
-      notes +
-      '<div class="vtools">' + (Speech.ok ? '<button type="button" data-listen="' + it.n + '">' + ICON.speakerSm + "இங்கிருந்து கேட்க</button>" : "") +
-      '<button type="button" data-copy="' + it.n + '">இணைப்பை நகலெடு</button>' +
+      (it.pic ? '<figure class="poem-pic"' + play + '><img loading="lazy" decoding="async" src="' + esc(it.pic) + '" alt="' + esc(it.alt || "") +
+        '" title="' + esc(it.alt || "") + '" width="240" height="240"></figure>' : "") +
+      '<div class="poem-top"><span class="vnum">பாடல் ' + it.n + "</span>" +
+      (Speech.ok ? '<button type="button" class="play-poem"' + play + ' aria-label="பாடல் ' + it.n + ' — பாடலும் விளக்கமும் கேட்க">' +
+        ICON.play + '<span class="pp-t">கேட்க</span></button>' : "") +
+      (metre ? '<span class="metre">' + esc(metre) + "</span>" : "") + "</div>" +
+      '<p class="verse' + (it.lines.length === 8 ? " eight" : "") + '"' + play + ">" + lines + "</p>" +
+      vil +
+      '<div class="vtools"><button type="button" data-copy="' + it.n + '">இணைப்பை நகலெடு</button>' +
       (rep ? '<a href="' + rep + '" target="_blank" rel="noopener">பிழை தெரிவிக்க</a>' : "") + "</div></article>";
   }
 
@@ -216,10 +257,9 @@
     var label = padalamLabel(pd);
     setTitle(d.title);
     store.set("last", { k: kd.n, n: pd.n, p: poem || 0 });
-    var showNotes = store.get("notes", false);
     var poems = d.items.filter(function (it) { return it.type === "poem"; });
 
-    var html = crumbs([{ text: "முகப்பு", href: "#home" }, { text: kd.ta, href: kandamLink(kd) }, { text: d.title }]) +
+    var html = topbar([{ text: "முகப்பு", href: "#home" }, { text: kd.ta, href: kandamLink(kd) }, { text: d.title }], controlsHtml()) +
       '<header class="chap-head"><div class="eyebrow">' + esc(kd.ta) + " · " + esc(label) +
       " · பாடல் " + d.from + "–" + d.to + " (" + poems.length + ")</div><h1>" + esc(d.title) + "</h1>" +
       (d.subtitle ? '<p class="sub">' + esc(d.subtitle) + "</p>" : "") + "</header>" +
@@ -236,13 +276,10 @@
         }).join("") + "</details>";
     }
 
-    html += '<div class="toolbar" role="toolbar" aria-label="படிக்கும் அமைப்பு">' +
-      '<div class="seg" id="notesSeg" aria-label="விளக்கம்">' +
-      '<button type="button" data-v="0">பதவுரை</button><button type="button" data-v="1">+ விளக்கம்</button></div>' +
-      '<span class="spacer"></span>' +
-      '<div class="seg" aria-label="எழுத்து அளவு"><button type="button" id="fsDown" aria-label="எழுத்தைச் சிறிதாக்கு">அ−</button><button type="button" id="fsUp" aria-label="எழுத்தைப் பெரிதாக்கு">அ+</button></div>' +
-      "</div>" +
-      (Speech.ok ? '<button type="button" class="listen big" id="listenPoems">' + ICON.speaker + "எல்லாப் பாடல்களையும் பொருளுடன் கேட்க</button>" : "");
+    if (Speech.ok) {
+      html += '<button type="button" class="listen big" id="listenPoems">' + ICON.speaker + "எல்லாப் பாடல்களையும் விளக்கத்துடன் கேட்க</button>" +
+        '<p class="listen-tip">எந்தப் பாடலையும் தொட்டால் (அல்லது ▶ கேட்க), அந்தப் பாடலும் அதன் விளக்கமும் படிக்கப்பட்டு, அடுத்த பாடல்களுக்குத் தானாகச் செல்லும்.</p>';
+    }
 
     var metre = "";
     groupIntoScenes(d).forEach(function (b) {
@@ -258,7 +295,7 @@
       b.items.forEach(function (it) {
         if (it.type === "heading") html += '<h3 class="subhead">' + esc(it.text) + "</h3>";
         else if (it.type === "metre") metre = it.text;
-        else { html += poemHtml(kd, d, it, metre, showNotes); metre = ""; }
+        else { html += poemHtml(kd, d, it, metre); metre = ""; }
       });
       html += "</section>";
     });
@@ -275,32 +312,31 @@
     }
   }
 
-  function applyNotes(on) {
-    var btns = document.querySelectorAll("#notesSeg button");
-    for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-pressed", (btns[i].getAttribute("data-v") === "1") === on ? "true" : "false");
-    var ds = document.querySelectorAll("details.notes");
-    for (var k = 0; k < ds.length; k++) ds[k].open = on;
-  }
   function applyFont(px) { document.documentElement.style.setProperty("--fs", px + "px"); }
 
   function wirePadalamControls(kd, pd, d) {
-    var showNotes = store.get("notes", false);
-    applyNotes(showNotes);
     var fs = store.get("fs", 17);
     applyFont(fs);
-    document.getElementById("notesSeg").onclick = function (e) {
-      var b = e.target.closest("button"); if (!b) return;
-      showNotes = b.getAttribute("data-v") === "1"; applyNotes(showNotes); store.set("notes", showNotes);
-    };
     document.getElementById("fsUp").onclick = function () { fs = Math.min(24, fs + 1); applyFont(fs); store.set("fs", fs); };
     document.getElementById("fsDown").onclick = function () { fs = Math.max(14, fs - 1); applyFont(fs); store.set("fs", fs); };
+    var sp = document.getElementById("spSel"), pt = document.getElementById("ptSel");
+    if (sp) sp.onchange = function () { Voice.speed = nearest(SPEEDS, sp.value); store.set("speed", Voice.speed); Player.refresh(); };
+    if (pt) pt.onchange = function () { Voice.pitch = nearest(PITCHES, pt.value); store.set("pitch", Voice.pitch); Player.refresh(); };
     var ls = document.getElementById("listenStory");
     if (ls) ls.onclick = function () { Player.start("story", d, 0); };
     var lp = document.getElementById("listenPoems");
-    if (lp) lp.onclick = function () { Player.start("poems", d, 0, showNotes); };
+    if (lp) lp.onclick = function () { Player.start("poems", d, 0); };
     app.onclick = function (e) {
-      var lb = e.target.closest("button[data-listen]");
-      if (lb) { Player.start("poems", d, Player.groupOfPoem(d, parseInt(lb.getAttribute("data-listen"), 10)), showNotes); return; }
+      var pl = e.target.closest("[data-play]");
+      if (pl) {
+        // a tap that ends a text selection is not a request to listen
+        var sel = window.getSelection ? String(window.getSelection()) : "";
+        if (sel && !pl.classList.contains("play-poem")) return;
+        var n = parseInt(pl.getAttribute("data-play"), 10);
+        if (Player.isOn("poems", n)) Player.toggle();
+        else Player.start("poems", d, Player.groupOfPoem(d, n));
+        return;
+      }
       var b = e.target.closest("button[data-copy]"); if (!b) return;
       var url = location.href.split("#")[0] + padalamLink(kd, pd.n, b.getAttribute("data-copy"));
       var original = b.textContent;
@@ -373,7 +409,7 @@
   }
 
   var Player = (function () {
-    var st = { items: [], groups: [], i: 0, playing: false, paused: false, cur: null, title: "", errors: 0, note: "" };
+    var st = { items: [], groups: [], i: 0, playing: false, paused: false, cur: null, title: "", errors: 0, note: "", mode: "", lastG: -1 };
     var bar = null;
     function $(id) { return document.getElementById(id); }
 
@@ -395,8 +431,10 @@
       $("plPlay").onclick = function () { if (st.paused) resume(); else pause(); };
     }
 
-    function build(mode, d, withNotes) {
-      st.items = []; st.groups = [];
+    // What is read, in order. For each poem: its number, the poem, then விளக்கம் — the பதவுரை and the explanation —
+    // and then straight on to the next poem.
+    function build(mode, d) {
+      st.items = []; st.groups = []; st.mode = mode;
       var ta = Speech.voiceFor("ta");
       st.note = ta ? "" : noTamilVoiceTip();
       function add(g, text, rate) {
@@ -405,22 +443,23 @@
       if (mode === "story") {
         st.title = "கதைச் சுருக்கம்";
         d.story.forEach(function (p, gi) {
-          st.groups.push({ id: "sp" + gi, start: st.items.length, label: "பகுதி " + (gi + 1) + " / " + d.story.length });
+          st.groups.push({ id: "sp" + gi, n: gi, start: st.items.length, label: "பகுதி " + (gi + 1) + " / " + d.story.length });
           sentences(ttsTamil(p)).forEach(function (x) { add(gi, x, 0.95); });
         });
       } else {
-        st.title = d.title + " — பாடல்களும் பொருளும்";
+        st.title = d.title + " — பாடலும் விளக்கமும்";
         var poems = d.items.filter(function (it) { return it.type === "poem"; });
         poems.forEach(function (it, gi) {
-          st.groups.push({ id: "p" + it.n, start: st.items.length, label: "பாடல் " + it.n + " (" + (gi + 1) + " / " + poems.length + ")" });
+          st.groups.push({ id: "p" + it.n, n: it.n, start: st.items.length, label: "பாடல் " + it.n + " (" + (gi + 1) + " / " + poems.length + ")" });
           add(gi, "பாடல் " + it.n + ".", 0.95);
           it.lines.forEach(function (l) { add(gi, ttsTamil(l), 0.82); });
+          var hasNotes = it.notes && it.notes.length;
+          if (it.pad || hasNotes) add(gi, "விளக்கம்.", 0.95);
           if (it.pad) {
             add(gi, "பதவுரை.", 0.95);
             sentences(ttsTamil(it.pad)).forEach(function (x) { add(gi, x, 0.95); });
           }
-          if (withNotes && it.notes && it.notes.length) {
-            add(gi, "விளக்கம்.", 0.95);
+          if (hasNotes) {
             it.notes.forEach(function (n) {
               if (n.q) n.q.forEach(function (l) { add(gi, ttsTamil(l), 0.85); });
               else sentences(ttsTamil(n.p)).forEach(function (x) { add(gi, x, 0.95); });
@@ -436,13 +475,20 @@
 
     function show() {
       var g = groupOf(st.i);
+      var fresh = g !== st.lastG;
+      st.lastG = g;
       var old = document.querySelectorAll(".speaking");
       for (var k = 0; k < old.length; k++) old[k].classList.remove("speaking");
       var el = st.groups[g] ? document.getElementById(st.groups[g].id) : null;
       if (el) {
         el.classList.add("speaking");
+        var tb = document.getElementById("topbar");
+        var top = tb ? tb.getBoundingClientRect().bottom : 0;
         var r = el.getBoundingClientRect();
-        if (r.top < 70 || r.top > window.innerHeight - 150) el.scrollIntoView({ block: "center", behavior: "smooth" });
+        // bring a newly started poem into view, below the top bar
+        if (fresh && (r.top < top + 4 || r.top > window.innerHeight - 160)) {
+          window.scrollBy({ top: r.top - top - 12, behavior: "smooth" });
+        }
       }
       $("plTitle").textContent = st.title;
       $("plPos").textContent = st.groups[g] ? st.groups[g].label : "";
@@ -464,7 +510,8 @@
       var u = new SpeechSynthesisUtterance(it.text);
       u.lang = it.lang;
       if (it.voice) u.voice = it.voice;
-      u.rate = it.rate || 1;
+      u.rate = Math.max(0.1, Math.min(10, (it.rate || 1) * Voice.speed));
+      u.pitch = Math.max(0, Math.min(2, Voice.pitch));
       u.onend = function () {
         if (u !== st.cur || !st.playing || st.paused) return;
         st.errors = 0;
@@ -491,12 +538,12 @@
       setTimeout(speakCurrent, 80);
     }
 
-    function start(mode, d, fromGroup, withNotes) {
+    function start(mode, d, fromGroup) {
       if (!Speech.ok) return;
       ensureBar();
       cancelNow();
-      build(mode, d, withNotes);
-      st.playing = true; st.paused = false; st.errors = 0;
+      build(mode, d);
+      st.playing = true; st.paused = false; st.errors = 0; st.lastG = -1;
       st.i = groupStart(Math.max(0, Math.min(fromGroup || 0, st.groups.length - 1)));
       bar.hidden = false;
       document.body.classList.add("has-player");
@@ -525,7 +572,20 @@
       for (var i = 0; i < poems.length; i++) if (poems[i].n === n) return i;
       return 0;
     }
-    return { start: start, stop: stop, pause: pause, resume: resume, prev: prev, next: next, groupOfPoem: groupOfPoem, state: st };
+    // new speed / pitch: say the current sentence again with the new setting
+    function refresh() {
+      if (!st.playing || st.paused) return;
+      cancelNow();
+      setTimeout(speakCurrent, 60);
+    }
+    function isOn(mode, n) {
+      if (!st.playing || st.mode !== mode) return false;
+      var g = st.groups[groupOf(st.i)];
+      return !!g && g.n === n;
+    }
+    function toggle() { if (st.paused) resume(); else pause(); }
+    return { start: start, stop: stop, pause: pause, resume: resume, prev: prev, next: next, groupOfPoem: groupOfPoem,
+      refresh: refresh, isOn: isOn, toggle: toggle, state: st };
   })();
   window.__player = Player;
 

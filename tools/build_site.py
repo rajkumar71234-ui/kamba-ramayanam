@@ -3,6 +3,7 @@
 Reads
   content/1/<pp>.src.json   poems, பதவுரை, விளக்கம், sub-headings (made by parse_pdf.py from the PDF)
   content/1/<pp>.ta.json    story summary, picture captions and scene list (written for this site)
+  content/1/pics.json       the small picture beside each poem and its alt text (made by thumbs.py)
   content/site.json         site title, the six kandams
 Writes
   data/1/<pp>.json          everything one padalam page needs
@@ -41,10 +42,19 @@ def build_padalam(k, n, errors):
     for sc in scenes + [{'src': img_base + ta['chapter_image']['file']}]:
         if not (ROOT / sc['src']).exists():
             errors.append(f'{n:02d}: missing picture {sc["src"]}')
+    pics_path = ROOT / 'content' / str(k) / 'pics.json'
+    pics = json.loads(pics_path.read_text(encoding='utf-8')) if pics_path.exists() else {}
     items = []
     for it in src['items']:
         if it['type'] == 'poem':
-            items.append({'type': 'poem', 'n': it['n'], 'lines': it['lines'], 'pad': it['pad'], 'notes': it['notes']})
+            row = {'type': 'poem', 'n': it['n'], 'lines': it['lines'], 'pad': it['pad'], 'notes': it['notes']}
+            pic = pics.get(str(it['n']))
+            if pic and (ROOT / pic['pic']).exists():
+                row['pic'] = pic['pic']
+                row['alt'] = pic['alt']
+            else:
+                errors.append(f'{n:02d}: no picture for poem {it["n"]} (run tools/thumbs.py)')
+            items.append(row)
         else:
             items.append({'type': it['type'], 'text': it['text']})
     data = {
