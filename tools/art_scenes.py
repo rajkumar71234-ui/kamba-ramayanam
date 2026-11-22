@@ -303,7 +303,7 @@ def scene(spec):
             s = (s or s_default) * 1.5
         yy = y if y is not None else gy
         sc = s or s_default
-        if sit and name in ('dasaratha', 'ravana', 'sugriva', 'vali', 'janaka', 'rama', 'bharata') and spec.get('bg') == 'court':
+        if sit and name in ('dasaratha', 'ravana', 'sugriva', 'vali', 'janaka', 'rama', 'bharata', 'sita', 'vibhishana', 'mandodari') and spec.get('bg') == 'court':
             yy -= 46 * sc / 1.45                     # a king sits on his throne
             out.append(G(throne(118), x=x, y=yy, s=sc * .9))
         out.append(put_fig(svg_, x, yy, sc, flip=bool(flip)))

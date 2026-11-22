@@ -880,5 +880,757 @@ false
 ]
 ],
 "alt": "சீதை தந்த சூடாமணியை இராமனிடம் தரும் அனுமன்; உடன் இலக்குவனும் சுக்கிரீவனும்"
+},
+"6-1": {
+"bg": "shore",
+"figs": [
+"rama_hermit:think:sad",
+"lakshmana_hermit:speak",
+"sugriva",
+"vanara"
+],
+"xs": [
+200,
+360,
+520,
+660
+],
+"alt": "தென்கடற்கரையில் கடலை நோக்கிச் சிந்திக்கும் இராமன்; உடன் இலக்குவன், சுக்கிரீவன், வானர வீரன்"
+},
+"6-2": {
+"bg": "court",
+"figs": [
+"vibhishana:namaste",
+"kumbhakarna:speak",
+"ravana:speak:stern:sit",
+"indrajit:raise:stern"
+],
+"xs": [
+120,
+280,
+480,
+670
+],
+"alt": "மந்திர மண்டபத்தில் அரியணையில் இராவணன்; அறிவுரை கூறும் வீடணன்; கும்பகருணனும் இந்திரசித்தும்"
+},
+"6-3": {
+"bg": "court",
+"figs": [
+"vibhishana:speak",
+"ravana:think:stern:sit"
+],
+"xs": [
+270,
+520
+],
+"alt": "இராவணன் அவையில் இரணியன் வரலாற்றைக் கூறும் வீடணன்"
+},
+"6-4": {
+"bg": "shore",
+"figs": [
+"lakshmana_hermit",
+"rama_hermit:bless",
+"vibhishana:namaste",
+"sugriva"
+],
+"xs": [
+150,
+320,
+500,
+670
+],
+"alt": "கடற்கரையில் சரண் அடைந்த வீடணனை வாழ்த்தி ஏற்கும் இராமன்; உடன் இலக்குவனும் சுக்கிரீவனும்"
+},
+"6-5": {
+"bg": "camp",
+"figs": [
+"vibhishana:speak",
+"rama_hermit:think",
+"lakshmana_hermit",
+"hanuman:namaste"
+],
+"xs": [
+160,
+340,
+500,
+660
+],
+"alt": "பாசறையில் இலங்கையின் படைபலத்தை விளக்கும் வீடணன்; கேட்கும் இராமன், இலக்குவன், அனுமன்"
+},
+"6-6": {
+"bg": "sea",
+"tm": "storm",
+"figs": [
+"rama_hermit:draw:stern",
+"samudra:namaste"
+],
+"xs": [
+260,
+560
+],
+"alt": "கொந்தளிக்கும் கடலின் மேல் அம்பு தொடுக்கும் இராமன்; கடலிலிருந்து தோன்றி வணங்கும் வருணன்"
+},
+"6-7": {
+"bg": "sea",
+"back": [
+[
+"bridge",
+60,
+360
+]
+],
+"figs": [
+"nala:point",
+[
+"vanara",
+600,
+470,
+1.4,
+"raise",
+"happy",
+false
+]
+],
+"xs": [
+220,
+600
+],
+"props": [
+[
+"mountain_held",
+600,
+230,
+0.9
+]
+],
+"alt": "கடலின் மேல் அணை கட்டும் நளன்; மலையைச் சுமந்து வரும் வானர வீரன்"
+},
+"6-8": {
+"bg": "camp",
+"figs": [
+"rama_hermit:bless",
+"demon:namaste:sad",
+"demon:namaste:sad",
+"vibhishana:point:stern"
+],
+"xs": [
+170,
+360,
+500,
+660
+],
+"alt": "பாசறையில் பிடிபட்ட அரக்க ஒற்றர்களுக்கு அபயம் அளிக்கும் இராமன்; அருகே வீடணன்"
+},
+"6-9": {
+"bg": "lanka_city",
+"tm": "evening",
+"figs": [
+"rama_hermit:point:wonder",
+"lakshmana_hermit:wonder"
+],
+"xs": [
+300,
+490
+],
+"alt": "மாலை ஒளியில் இலங்கை நகரைச் சுட்டிக் காட்டி வியக்கும் இராமனும் இலக்குவனும்"
+},
+"6-10": {
+"bg": "lanka_city",
+"figs": [
+"demon:speak",
+"ravana:point:stern"
+],
+"xs": [
+290,
+510
+],
+"alt": "இலங்கைக் கோட்டையின் மேல் நின்று வானரப் படையைச் சுட்டும் இராவணன்; விளக்கும் சாரன்"
+},
+"6-11": {
+"bg": "lanka_city",
+"tm": "evening",
+"figs": [
+"sugriva:raise:stern",
+"ravana:raise:stern"
+],
+"xs": [
+300,
+520
+],
+"props": [
+[
+"chudamani",
+"above:0",
+0.8
+]
+],
+"alt": "இலங்கைக் கோபுரத்தில் இராவணனோடு போரிட்டு அவன் முடிமணியைப் பறிக்கும் சுக்கிரீவன்"
+},
+"6-12": {
+"bg": "lanka_city",
+"tm": "dawn",
+"figs": [
+"demon:raise",
+"demon:draw",
+"ravana:point:stern",
+"demon:draw",
+"demon:raise"
+],
+"alt": "இலங்கை நகரில் தன் படைத் தலைவர்களை அணிவகுத்து ஆணையிடும் இராவணன்"
+},
+"6-13": {
+"bg": "court",
+"figs": [
+"angada:point:stern",
+"ravana:speak:stern:sit"
+],
+"xs": [
+270,
+520
+],
+"alt": "இராவணன் அவையில் அஞ்சாமல் தூது உரைக்கும் அங்கதன்; அரியணையில் இராவணன்"
+},
+"6-14": {
+"bg": "battle",
+"figs": [
+"rama_hermit:draw",
+"ravana:down:sad"
+],
+"xs": [
+260,
+540
+],
+"alt": "போர்க்களத்தில் படைக்கலம் இழந்து நிற்கும் இராவணன்; வில்லேந்தி அருளுடன் நோக்கும் இராமன்"
+},
+"6-15": {
+"bg": "battle",
+"figs": [
+"rama_hermit:draw:stern",
+[
+"kumbhakarna",
+540,
+486,
+1.45,
+"raise",
+"stern",
+false
+]
+],
+"xs": [
+220,
+540
+],
+"alt": "போர்க்களத்தில் பேருருவக் கும்பகருணனை எதிர்த்து அம்பு தொடுக்கும் இராமன்"
+},
+"6-16": {
+"bg": "asoka",
+"figs": [
+"sita_hermit:chest:sad",
+"dasaratha:speak:sad",
+"ravana:point:stern:flip"
+],
+"xs": [
+220,
+410,
+610
+],
+"alt": "அசோகவனத்தில் மாயச் சனகனைக் கண்டு கலங்கும் சீதை; அருகே இராவணன்"
+},
+"6-17": {
+"bg": "battle",
+"figs": [
+"lakshmana_hermit:draw:stern",
+[
+"demon",
+560,
+486,
+1.9,
+"draw",
+"stern",
+false
+]
+],
+"xs": [
+240,
+560
+],
+"back": [
+[
+"chariot",
+600,
+470,
+1.2
+]
+],
+"alt": "தேரில் வந்து போரிடும் அதிகாயனை எதிர்த்து அம்பு தொடுக்கும் இலக்குவன்"
+},
+"6-18": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"lakshmana_hermit:down:sad",
+"rama_hermit:chest:sad"
+],
+"xs": [
+240,
+420
+],
+"props": [
+[
+"garuda",
+620,
+220,
+0.9
+]
+],
+"alt": "நாகபாசத்தால் சோர்ந்த இலக்குவனைக் கண்டு வருந்தும் இராமன்; வானில் வரும் கருடன்"
+},
+"6-19": {
+"bg": "battle",
+"figs": [
+"hanuman:raise:stern",
+"demon:raise:stern",
+"angada:raise:stern",
+"demon:draw:stern",
+"lakshmana_hermit:draw:stern"
+],
+"xs": [
+110,
+255,
+400,
+545,
+680
+],
+"alt": "போர்க்களத்தில் அரக்கப் படைத் தலைவர்களை எதிர்க்கும் அனுமன், அங்கதன், இலக்குவன்"
+},
+"6-20": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"rama_hermit:draw:stern",
+"demon:draw:stern"
+],
+"xs": [
+250,
+560
+],
+"back": [
+[
+"chariot",
+590,
+470,
+1.0
+]
+],
+"alt": "தேரில் வந்து மாயப் போர் புரியும் மகரக் கண்ணனை எதிர்த்து அம்பு தொடுக்கும் இராமன்"
+},
+"6-21": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"indrajit:draw:stern",
+"lakshmana_hermit:down:sad",
+"vanara:down:sad"
+],
+"xs": [
+200,
+450,
+640
+],
+"props": [
+[
+"arrows",
+400,
+180
+]
+],
+"alt": "பிரமன் படைக்கலத்தை ஏவும் இந்திரசித்து; களத்தில் சோர்ந்து விழும் இலக்குவனும் வானர வீரனும்"
+},
+"6-22": {
+"bg": "battle",
+"tm": "evening",
+"back": [
+[
+"pushpaka",
+400,
+330,
+1.7
+]
+],
+"figs": [
+[
+"sita_hermit",
+360,
+265,
+1.05,
+"chest",
+"sad",
+false
+],
+[
+"trijata",
+450,
+265,
+1.05,
+"speak",
+"happy",
+false
+]
+],
+"alt": "புட்பக விமானத்தில் போர்க்களத்தைக் கண்டு வருந்தும் சீதை; தேற்றும் திரிசடை"
+},
+"6-23": {
+"bg": "sky",
+"tm": "night",
+"figs": [
+[
+"hanuman",
+400,
+470,
+1.6,
+"raise",
+"happy",
+false
+]
+],
+"props": [
+[
+"mountain_held",
+400,
+140,
+1.2
+]
+],
+"alt": "இரவு வானில் மருந்து மலையைக் கையில் ஏந்திப் பறந்து வரும் அனுமன்"
+},
+"6-24": {
+"bg": "court",
+"tm": "night",
+"figs": [
+"woman:raise:happy",
+"ravana:bless:happy:sit",
+"woman:raise:happy"
+],
+"xs": [
+200,
+400,
+600
+],
+"props": [
+[
+"lamp",
+110,
+470,
+1.0
+],
+[
+"lamp",
+690,
+470,
+1.0
+]
+],
+"alt": "இரவில் அரண்மனையில் மகளிர் ஆடலைக் கண்டு மகிழும் இராவணன்"
+},
+"6-25": {
+"bg": "lanka_city",
+"figs": [
+"hanuman:chest:sad",
+"sita_hermit:down:sad",
+"indrajit:raise:stern"
+],
+"xs": [
+200,
+420,
+600
+],
+"alt": "இலங்கை நகர் வீதியில் மாயச் சீதையை இழுத்து வரும் இந்திரசித்து; கலங்கி நிற்கும் அனுமன்"
+},
+"6-26": {
+"bg": "cave",
+"tm": "night",
+"figs": [
+"lakshmana_hermit:draw:stern",
+"indrajit:namaste:sit",
+"vibhishana:point"
+],
+"xs": [
+170,
+420,
+640
+],
+"props": [
+[
+"fire",
+420,
+486,
+0.8
+]
+],
+"alt": "நிகும்பலையில் வேள்வித் தீ முன் அமர்ந்த இந்திரசித்து; வேள்வியைத் தடுக்க வரும் இலக்குவனும் வீடணனும்"
+},
+"6-27": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"vibhishana:point",
+"lakshmana_hermit:draw:stern",
+"indrajit:draw:stern"
+],
+"xs": [
+130,
+310,
+590
+],
+"alt": "மாலைப் போர்க்களத்தில் இந்திரசித்தை நோக்கிப் பிறைமுக அம்பு தொடுக்கும் இலக்குவன்; அருகே வீடணன்"
+},
+"6-28": {
+"bg": "court",
+"tm": "night",
+"figs": [
+"mandodari:chest:sad",
+"ravana:chest:sad"
+],
+"xs": [
+300,
+500
+],
+"alt": "இரவில் அரண்மனையில் மகனை இழந்து கதறும் மண்டோதரியும் துயருற்ற இராவணனும்"
+},
+"6-29": {
+"bg": "lanka_city",
+"tm": "dawn",
+"figs": [
+"demon:raise:happy",
+"demon:raise",
+"ravana:point:happy",
+"demon:raise",
+"demon:raise:happy"
+],
+"alt": "இலங்கை நகரில் வந்து குவிந்த அரக்கர் படையைக் கண்டு மகிழும் இராவணன்"
+},
+"6-30": {
+"bg": "battle",
+"tm": "storm",
+"figs": [
+"rama_hermit:draw:stern",
+"demon:raise:stern",
+"demon:draw:stern",
+"demon:raise:stern"
+],
+"xs": [
+170,
+430,
+560,
+690
+],
+"alt": "அளவற்ற அரக்கர் படையைத் தனியே நின்று எதிர்க்கும் இராமன்"
+},
+"6-31": {
+"bg": "battle",
+"figs": [
+"vibhishana:raise:wonder",
+"lakshmana_hermit:chest:sad",
+"ravana:raise:stern"
+],
+"xs": [
+150,
+330,
+600
+],
+"alt": "வீடணன் மேல் எறிந்த வேலைத் தன் மார்பில் ஏற்ற இலக்குவன்; எதிரே இராவணன்"
+},
+"6-32": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"vibhishana:point",
+"sugriva:raise:wonder",
+"hanuman:wonder",
+"angada:wonder",
+"jambavan"
+],
+"alt": "மாலைப் போர்க்களத்தைச் சுட்டிக் காட்டும் வீடணன்; வியந்து நோக்கும் வானர வீரர்கள்"
+},
+"6-33": {
+"bg": "lanka_city",
+"tm": "evening",
+"figs": [
+"demoness:chest:sad",
+"ravana:chest:sad",
+"demoness:down:sad"
+],
+"xs": [
+200,
+410,
+620
+],
+"alt": "மாலையில் கோட்டையிலிருந்து அழிந்த படையைக் கண்டு கலங்கும் இராவணன்; அழும் அரக்கியர்"
+},
+"6-34": {
+"bg": "lanka_city",
+"back": [
+[
+"chariot",
+420,
+478,
+1.35
+]
+],
+"figs": [
+"demon:raise",
+[
+"ravana",
+400,
+398,
+1.25,
+"draw",
+"stern",
+false
+],
+"demon:raise"
+],
+"xs": [
+110,
+400,
+700
+],
+"alt": "இலங்கையில் தெய்வத் தேரில் ஏறி வில் ஏந்திப் போருக்குப் புறப்படும் இராவணன்"
+},
+"6-35": {
+"bg": "sky",
+"tm": "divine",
+"back": [
+[
+"chariot",
+420,
+478,
+1.35
+]
+],
+"figs": [
+"deva:namaste",
+[
+"rama_hermit",
+400,
+398,
+1.25,
+"bless",
+"happy",
+false
+]
+],
+"xs": [
+680,
+400
+],
+"alt": "ஒளி சூழ்ந்த வானில் இந்திரனின் தேரில் ஏறி நிற்கும் இராமன்; வணங்கும் மாதலி"
+},
+"6-36": {
+"bg": "battle",
+"tm": "evening",
+"back": [
+[
+"chariot",
+250,
+478,
+1.2
+]
+],
+"figs": [
+[
+"rama_hermit",
+240,
+405,
+1.2,
+"draw",
+"stern",
+false
+],
+"ravana:raise:stern"
+],
+"xs": [
+240,
+580
+],
+"props": [
+[
+"arrows",
+420,
+200
+]
+],
+"alt": "மாலைப் போர்க்களத்தில் தேரில் நின்று இராவணனை நோக்கி அம்பு தொடுக்கும் இராமன்"
+},
+"6-37": {
+"bg": "battle",
+"tm": "divine",
+"figs": [
+"rama_hermit:bless",
+"sita:namaste:happy",
+"agni:bless"
+],
+"xs": [
+220,
+410,
+600
+],
+"props": [
+[
+"fire",
+600,
+486,
+0.7
+]
+],
+"alt": "தீயிலிருந்து மீண்ட சீதையை இராமனிடம் ஒப்படைக்கும் தீக்கடவுள்"
+},
+"6-38": {
+"bg": "court",
+"figs": [
+"hanuman:namaste",
+"rama:bless:sit",
+"sita:happy:sit",
+"vasishtha:bless"
+],
+"xs": [
+130,
+330,
+480,
+670
+],
+"props": [
+[
+"umbrella",
+405,
+140,
+0.9
+]
+],
+"alt": "அயோத்தி அரண்மனையில் அரியணையில் இராமனும் சீதையும்; வாழ்த்தும் வசிட்டன், வணங்கும் அனுமன்"
+},
+"6-39": {
+"bg": "court",
+"figs": [
+"sugriva:namaste",
+"rama:give:sit",
+"vibhishana:namaste",
+"hanuman:namaste"
+],
+"xs": [
+140,
+340,
+520,
+680
+],
+"props": [
+[
+"garland",
+250,
+230,
+0.55
+]
+],
+"alt": "அரியணையிலிருந்து சுக்கிரீவனுக்கும் வீடணனுக்கும் அனுமனுக்கும் பரிசு தந்து விடை கொடுக்கும் இராமன்"
 }
 }
