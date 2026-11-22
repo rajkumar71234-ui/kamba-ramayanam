@@ -12,7 +12,9 @@ Writes
 Usage (from the repo root):  python3 tools/build_site.py
 """
 import json
+import subprocess
 import sys
+import time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pad_notes import rebalance
@@ -23,6 +25,18 @@ SOURCE_NOTE = ("பாடல்களும் பதவுரை, விளக�
 KANDAM_TA = {1: 'பால காண்டம்', 2: 'அயோத்தியா காண்டம்', 3: 'ஆரணிய காண்டம்', 4: 'கிட்கிந்தா காண்டம்',
              5: 'சுந்தர காண்டம்', 6: 'யுத்த காண்டம்'}
 
+
+
+def video_ready(mp4):
+    """A finished story video: it exists, has its poster, is not being written right now, and plays."""
+    if not mp4.exists() or not (mp4.parent / 'poster.jpg').exists() or time.time() - mp4.stat().st_mtime < 10:
+        return False
+    r = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(mp4)],
+                       capture_output=True, text=True)
+    try:
+        return float(r.stdout.strip()) > 1
+    except ValueError:
+        return False
 
 def build_padalam(k, n, errors):
     src = json.loads((ROOT / 'content' / str(k) / f'{n:02d}.src.json').read_text(encoding='utf-8'))
@@ -68,7 +82,7 @@ def build_padalam(k, n, errors):
         'story': ta['story'],
         'chapter_image': {'src': img_base + ta['chapter_image']['file'], 'alt': ta['chapter_image']['alt']},
         'video': ({'src': img_base + 'video.mp4', 'poster': img_base + 'poster.jpg'}
-                  if (ROOT / img_base / 'video.mp4').exists() else None),
+                  if video_ready(ROOT / img_base / 'video.mp4') else None),
         'scenes': scenes,
         'intro': src['intro'],
         'items': items,

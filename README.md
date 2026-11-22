@@ -41,9 +41,10 @@ Sister site: [வால்மீகி ராமாயணம்](https://rajkuma
 | `assets/` | Styles, script, logo |
 | `data/kandams.json` | The six kandams and their padalams |
 | `data/<k>/<pp>.json` | One file per padalam; k = 1 பால … 6 யுத்த (பால காண்டம் 00 = பாயிரம்; the others start at 01) |
-| `img/<k>/<pp>/` | Pictures for that padalam (SVG): `chapter.svg`, `scene-*.svg` (பால காண்டம்), and `p<n>.svg` beside poem n |
+| `img/<k>/<pp>/` | Pictures for that padalam (SVG): `chapter.svg`, `scene-*.svg` (பால காண்டம்), `p<n>.svg` beside poem n, and the story video `video.mp4` with its `poster.jpg` |
 | `content/<k>/<pp>.src.json` | Poems, பதவுரை, விளக்கம், sub-headings — taken from the source PDF |
 | `content/<k>/<pp>.ta.json` | Story summary and picture caption — written for this site |
+| `content/<k>/<pp>.video.json` | The scenes of the padalam's story video: what the voice says and the picture for each scene |
 | `content/<k>/pics.json` | The small picture for each poem and its Tamil alt text (made by `tools/thumbs.py`) |
 | `content/site.json` | Site title and the six kandams |
 | `tools/` | The PDF decoder, build script and drawing kit |
@@ -99,7 +100,31 @@ patterns: people, animals, things, places, time of day, moods). It draws up to t
 details in the same cartoon style as the padalam pictures. A few well-known poems have a hand-made picture
 (`OVERRIDE` in `thumbs.py`).
 
+## Story videos
+
+Every padalam page shows a short story video in the picture area at the top. `tools/make_video.py` makes them:
+
+```
+python3 tools/make_video.py 5          # all videos of சுந்தர காண்டம்
+python3 tools/make_video.py 5 4 7      # only padalams 4 and 7
+```
+
+Each scene in `content/<k>/<pp>.video.json` is either `{"text": …, "spec": {…}}` (a picture drawn by
+`tools/art_scenes.py` from a spec: background `bg`, figures `figs`, time of day `tm`, props) or
+`{"text": …, "image": "chapter.svg"}` (an existing picture of that padalam). The script reads each scene's text aloud
+with a Tamil voice, shows it as captions two lines at a time, slowly zooms each picture and cross-fades between
+scenes, then writes `img/<k>/<pp>/video.mp4` (1024×640, H.264) and `poster.jpg`. A title card with the kandam and
+padalam names opens every video. `build_site.py` adds the video to a padalam's page when `video.mp4` exists.
+
+If the voice says a word wrongly, add it to `tools/pronounce.json` as `{"written word": "spelling it should say"}`
+and make that video again; the captions keep the written spelling.
+
+Needs ffmpeg, rsvg-convert, the Noto Sans Tamil and Noto Serif Tamil fonts, torch, transformers, soundfile and
+uharfbuzz. The voice model (`facebook/mms-tts-tam`) is downloaded on first use.
+
 ## Credits
 
 - Poems, பதவுரை and விளக்கம்: from the annotated edition in the source PDFs; poem numbers follow it.
 - Story summaries and pictures: written and drawn fresh for this site.
+- Video narration voice: Meta's MMS text-to-speech model for Tamil (`facebook/mms-tts-tam`), licensed CC BY-NC 4.0;
+  the videos are for non-commercial use.

@@ -1,0 +1,44 @@
+{
+"scenes": [
+{
+"text": "பகை ஒழிந்தது என்று மகிழ்ந்த இராவணன், அரக்க மகளிரைக் கள்ளுண்டு களிவெறியோடு ஆடச் செய்து பார்த்து இன்புற்றான்.",
+"spec": {
+"bg": "court",
+"figs": [
+"demoness:raise:happy",
+"ravana:happy:sit",
+"demoness:wave:happy"
+]
+}
+},
+{
+"text": "கள்ளுண்டவர்களின் நிலையையும் அவர்கள் ஆடலையும் கம்பர் சுவையாக வருணிக்கிறார்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demoness:raise:happy",
+"demon:raise:happy",
+"demoness:wave:happy"
+],
+"tm": "night"
+}
+},
+{
+"text": "அப்போது உயிர் பெற்ற வானரர் எழுப்பிய ஆர்ப்பொலி இலங்கையை அதிரச் செய்தது; அதைக் கேட்ட அரக்கர் கலங்கினர்.",
+"spec": {
+"bg": "lanka",
+"figs": [
+"vanara:raise:happy",
+"vanara:raise:happy",
+"hanuman:raise:happy"
+],
+"tm": "night",
+"xs": [
+100,
+220,
+340
+]
+}
+}
+]
+}

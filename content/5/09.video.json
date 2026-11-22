@@ -1,0 +1,98 @@
+{
+"scenes": [
+{
+"text": "ஐந்து படைத் தலைவர்கள், அனுமனைப் பிடித்து வருவதாக இராவணனிடம் வேண்டினர். இராவணன் இசைந்தான்.",
+"spec": {
+"bg": "court",
+"figs": [
+"ravana:bless:sit",
+"demon:namaste",
+"demon:namaste",
+"demon:namaste"
+],
+"xs": [
+250,
+450,
+580,
+700
+]
+}
+},
+{
+"text": "படைகள் திரண்டன. சுற்றத்தார் அழுது தடுத்தும், ஐவரும் தம் படையோடு புறப்பட்டனர்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demoness:chest:sad",
+"demon:draw:stern",
+"demon:raise:stern"
+],
+"xs": [
+180,
+420,
+620
+]
+}
+},
+{
+"text": "அரக்கர் படையைக் கண்ட அனுமன் பெரிய வடிவம் கொண்டான். அரக்கர்கள் சினந்து படைக்கலங்களை வீசினர்.",
+"spec": {
+"bg": "battle",
+"figs": [
+"demon:draw:stern",
+[
+"hanuman",
+420,
+486,
+2.2,
+"raise",
+"stern",
+false
+],
+"demon:draw:stern"
+],
+"xs": [
+150,
+420,
+660
+],
+"props": [
+[
+"arrows",
+300,
+180
+]
+]
+}
+},
+{
+"text": "அனுமன் செய்த போரில் படைகள் முழுமையாக அழிந்தன. பின் ஐந்து தலைவர்களும் அவனோடு பொருது வீழ்ந்தனர்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demon:raise:stern",
+"demon:draw:stern",
+"hanuman:raise:stern",
+"demon:draw:stern",
+"demon:raise:stern"
+],
+"tm": "evening"
+}
+},
+{
+"text": "ஐவரும் அழிந்த செய்தி இராவணனுக்கு அறிவிக்கப்பட்டது.",
+"spec": {
+"bg": "court",
+"figs": [
+"ravana:chest:stern:sit",
+"demon:namaste:sad"
+],
+"tm": "evening",
+"xs": [
+330,
+580
+]
+}
+}
+]
+}

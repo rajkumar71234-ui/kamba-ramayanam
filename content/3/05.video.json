@@ -1,0 +1,106 @@
+{
+"scenes": [
+{
+"text": "கோதாவரி ஆறு அழகுடன் பொலிந்தது. இராமனும் சீதையும் இயற்கைக் காட்சிகளைக் கண்டு மகிழ்ந்தனர்.",
+"spec": {
+"bg": "river",
+"figs": [
+"rama_hermit:point:happy",
+"sita_hermit:happy"
+],
+"xs": [
+300,
+480
+]
+}
+},
+{
+"text": "அங்கு வந்த சூர்ப்பணகை என்னும் அரக்கி இராமனைக் கண்டு காமுற்றாள். அழகிய பெண் வடிவம் கொண்டு அன்ன நடை நடந்து வந்தாள்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"surpanakha_b:walk:happy"
+],
+"xs": [
+400
+]
+}
+},
+{
+"text": "அவள் அழகைக் கண்டு இராமன் வியந்தான். அவள் இராமனை வணங்கி, நாணி நின்று பேசினாள்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"rama_hermit:wonder",
+"surpanakha_b:namaste:happy"
+],
+"xs": [
+300,
+510
+]
+}
+},
+{
+"text": "சீதையைக் கண்ட சூர்ப்பணகை பொறாமை கொண்டு அவளைச் சினந்தாள். இராமன் அவளைக் கடிந்தான்; அவள் மனம் நைந்து சென்றாள்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"sita_hermit:chest:wonder",
+"surpanakha_b:point:stern",
+"rama_hermit:point:stern"
+],
+"xs": [
+200,
+410,
+600
+]
+}
+},
+{
+"text": "மறுநாள் சீதையைத் தூக்கிச் செல்ல முயன்றாள். இலக்குவன் அவளைத் தடுத்து, அவள் மூக்கையும் செவிகளையும் அறுத்துத் தண்டித்தான்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"sita_hermit:raise:wonder",
+"surpanakha:raise:stern",
+"lakshmana_hermit:raise:stern"
+],
+"xs": [
+200,
+400,
+600
+]
+}
+},
+{
+"text": "சூர்ப்பணகை ஓலமிட்டு, தன் உறவினரைக் கூவி அழைத்தாள். இராமன் வர, அவனிடம் முறையிட்டாள்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"surpanakha:chest:sad",
+"rama_hermit:speak"
+],
+"xs": [
+300,
+520
+]
+}
+},
+{
+"text": "இவள் செய்த பிழை என்ன என்று இராமன் கேட்க, இலக்குவன் விளக்கினான். சினந்த இராமன் அவளை அச்சுறுத்தினான். அவள் அவர்களை அச்சுறுத்தி அகன்றாள்.",
+"spec": {
+"bg": "panchavati",
+"figs": [
+"lakshmana_hermit:speak",
+"rama_hermit:point:stern",
+"surpanakha:point:stern"
+],
+"xs": [
+200,
+380,
+590
+]
+}
+}
+]
+}

@@ -49,6 +49,17 @@ def F(name, pose='down', eye='happy', sitting=False, v=0):
         'sumitra': lambda: sumitra(pose=pose, eye=eye, mk=mk, sitting=sitting),
         'manthara': lambda: manthara(pose=pose if pose != 'down' else 'point', eye=eye, mk=mk, sitting=sitting),
         'vasishtha': lambda: vasishtha(pose=pose, sitting=sitting, eye=eye, mouth_kind=mk),
+        'king': lambda: person(skin=SKIN_YOUNG, hair='long', moustache=BLACK_HAIR, outfit='dhoti',
+                               cloth=['#b5452f', '#3f6fa8', '#5a8a3a', '#7a4fa3'][v % 4], sash=GOLD, jewels=True,
+                               crown_kind='tall', pose=pose, sitting=sitting, eye=eye, mouth_kind=mk),
+        'ahalya': lambda: woman(cloth='#f4efe1', cloth_d='#d9cfb8', pose=pose, eye=eye, mouth_kind=mk, sitting=sitting),
+        'patron': lambda: patron(pose=pose, sitting=sitting, eye=eye, hold='lamp' if hold_ok else None),
+        'tataka': lambda: rakshasa(pose=pose, hold=None, eye='stern', female=True, skin='#6a4a5a', cloth='#3a2433'),
+        'janaka': lambda: janaka(pose=pose, sitting=sitting, eye=eye, mouth_kind=mk),
+        'vishwamitra': lambda: vishwamitra(pose=pose, sitting=sitting, eye=eye, mouth_kind=mk, hold='staff' if hold_ok else None),
+        'shatananda': lambda: shatananda(pose=pose, sitting=sitting, eye=eye),
+        'parasurama': lambda: parasurama(pose=pose, eye=eye, mouth_kind=mk, hold='axe' if hold_ok else None),
+        'kamban': lambda: kamban(pose=pose, sitting=sitting, eye=eye, mouth_kind=mk, hold='leaf' if hold_ok else None),
         'guha': lambda: guha(pose=pose, eye=eye, mk=mk, sitting=sitting),
         'sumantra': lambda: sumantra(pose=pose, eye=eye, mk=mk, sitting=sitting),
         'hunter': lambda: hunter(pose=pose, eye=eye, mk=mk),
@@ -222,6 +233,24 @@ def dead_tree_big(x, y):
     return G(P(d, stroke=OUT, sw=12) + P(d, stroke='#8a6a4a', sw=8), x=x, y=y)
 
 
+def shiva_bow(h=380, half=0):
+    """Siva's great bow: a thick wooden arc with gold bands; half=1/2 draws one broken piece."""
+    a, b = -h / 2, h / 2
+    d = f'M0,{a} Q-70,0 0,{b}'
+    if half == 1:
+        d = f'M0,{a} Q-35,{a / 2} -35,0'
+    elif half == 2:
+        d = f'M-35,0 Q-35,{b / 2} 0,{b}'
+    out = P(d, stroke=OUT, sw=20) + P(d, stroke='#8a5a2b', sw=14)
+    for t in ((.25, .5, .75) if not half else ((.5,) if half == 1 else (.5,))):
+        bx = 2 * (1 - t) * t * -70 if not half else -26
+        by = ((1 - t) ** 2 * a + t * t * b) if not half else (a / 4 if half == 1 else b / 4)
+        out += C(bx, by, 9, GOLD, sw=2)
+    if not half:
+        out += P(f'M0,{a} L0,{b}', stroke='#e9e0c8', sw=2)
+    return out
+
+
 # ------------------------------------------------------------------ props (800 x 500 coordinates)
 def prop(name, x=None, y=None, s=1.0):
     table = {
@@ -257,6 +286,35 @@ def prop(name, x=None, y=None, s=1.0):
         'tent': lambda: tent(x or 400, y or 400, s),
         'moon': lambda: moon(x or 640, y or 80, 30),
         'lotus': lambda: lotus(x or 400, y or 450, s * 1.5),
+        'horse': lambda: G(horse(prance=True), x=x or 620, y=y or 460, s=s * 1.1),
+        'peacock': lambda: G(peacock(), x=x or 650, y=y or 460, s=s * 1.2),
+        'swan': lambda: G(swan(), x=x or 400, y=y or 440, s=s * 1.3),
+        'bull': lambda: G(bull(), x=x or 640, y=y or 460, s=s * 1.2),
+        'cradle': lambda: cradle(x or 400, y or 470, s * 1.2) + G(baby(), x=x or 400, y=(y or 470) - 46 * s * 1.2, s=s * 1.2),
+        'baby': lambda: G(baby(), x=x or 400, y=y or 430, s=s * 1.6),
+        'rain': lambda: rain((x or 400) - 140 * s, (x or 400) + 140 * s, (y or 110) + 20, 360) + dark_cloud(x or 400, y or 110, s * 2.2),
+        'dark_cloud': lambda: dark_cloud(x or 400, y or 110, s * 2.2),
+        'rainbow': lambda: rainbow(x or 400, y or 330, int(260 * s)),
+        'mandapam': lambda: mandapam(x or 400, y or 400, s),
+        'paddy': lambda: paddy(0, 800, y or 480, 3, ripe=True),
+        'waterfall': lambda: waterfall(x or 650, y or 300, 160, 36),
+        'bees': lambda: bee(x or 400, y or 150, s) + bee((x or 400) + 40, (y or 150) - 22, s) + bee((x or 400) - 34, (y or 150) + 16, s),
+        'fish': lambda: G(fish(), x=x or 400, y=y or 440, s=s * 2),
+        'milk_sea': lambda: milk_sea(y or 330, 500),
+        'palace': lambda: palace(x or 400, y or 330, s),
+        'gopuram': lambda: gopuram(x or 400, y or 370, s),
+        'blossom': lambda: blossom_tree(x or 120, y or 380, s * 1.3),
+        'bow_big': lambda: G(shiva_bow(380), x=x or 400, y=y or 300, s=s, rot=90),
+        'bow_broken': lambda: G(shiva_bow(380, half=1), x=(x or 400) - 30, y=y or 300, s=s, rot=70) + G(shiva_bow(380, half=2), x=(x or 400) + 30, y=y or 300, s=s, rot=110),
+        'kalasha': lambda: G(kalasha(True), x=x or 400, y=y or 450, s=s * 1.6),
+        'monkey': lambda: G(monkey(), x=x or 620, y=y or 450, s=s * 1.4),
+        'cat': lambda: G(cat('sit'), x=x or 300, y=y or 450, s=s * 1.6),
+        'sun': lambda: sun(x or 640, y or 90, 40 * s),
+        'crown': lambda: G(crown('tall', 0), x=x or 400, y=y or 300, s=s * 2.4),
+        'crowns': lambda: ''.join(G(crown('tall', 0), x=(x or 400) + dx, y=(y or 300) + dy, s=s * 1.8, rot=r)
+                                  for dx, dy, r in ((-60, 10, -20), (0, -10, 0), (60, 10, 20))),
+        'chariot_l': lambda: G(chariot(), x=x or 400, y=y or 440, s=s * 1.2, flip=True),
+        'cow': lambda: G(bull(color='#f4efe6'), x=x or 640, y=y or 460, s=s * 1.2),
     }
     return table[name]()
 
@@ -279,8 +337,10 @@ def scene(spec):
     xs = spec.get('xs') or ([400] if n == 1 else [int(400 - span / 2 + i * (span / (n - 1))) for i in range(n)])
     placed = []
     for i, f in enumerate(figs):
-        if isinstance(f, (tuple, list)):  # (name, x, y, scale, pose, mood, flip)
-            name, x, y, s, pose, mood, flip = (list(f) + [None] * 7)[:7]
+        rot = 0
+        if isinstance(f, (tuple, list)):  # (name, x, y, scale, pose, mood, flip[, rot])
+            name, x, y, s, pose, mood, flip, rot = (list(f) + [None] * 8)[:8]
+            rot = rot or 0
             sit = False
         else:
             bits = f.split(':')
@@ -303,10 +363,10 @@ def scene(spec):
             s = (s or s_default) * 1.5
         yy = y if y is not None else gy
         sc = s or s_default
-        if sit and name in ('dasaratha', 'ravana', 'sugriva', 'vali', 'janaka', 'rama', 'bharata', 'sita', 'vibhishana', 'mandodari') and spec.get('bg') == 'court':
+        if sit and name in ('dasaratha', 'ravana', 'sugriva', 'vali', 'janaka', 'rama', 'bharata', 'sita', 'vibhishana', 'mandodari', 'king') and spec.get('bg') == 'court':
             yy -= 46 * sc / 1.45                     # a king sits on his throne
             out.append(G(throne(118), x=x, y=yy, s=sc * .9))
-        out.append(put_fig(svg_, x, yy, sc, flip=bool(flip)))
+        out.append(G(svg_, x=x, y=yy, s=sc, flip=bool(flip), rot=rot) if rot else put_fig(svg_, x, yy, sc, flip=bool(flip)))
         placed.append((x, yy, sc, sit))
     for pr in spec.get('props', []):
         if isinstance(pr, (tuple, list)) and len(pr) >= 2 and isinstance(pr[1], str) and pr[1].startswith('above:'):

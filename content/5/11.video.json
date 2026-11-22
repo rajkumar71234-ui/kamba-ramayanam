@@ -1,0 +1,122 @@
+{
+"scenes": [
+{
+"text": "தம்பி அக்ககுமாரன் மாண்டதைக் கேட்ட இந்திரசித்து, பெரும் படை சூழப் போருக்கு எழுந்தான்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demon:raise:stern",
+"indrajit:raise:stern",
+"demon:raise:stern"
+],
+"xs": [
+170,
+400,
+630
+]
+}
+},
+{
+"text": "இராவணனின் மாளிகைக்குச் சென்று பேசி, அவனிடம் விடைபெற்றுப் போர்க்களம் சென்றான்.",
+"spec": {
+"bg": "court",
+"figs": [
+"ravana:bless:sit",
+"indrajit:namaste"
+],
+"xs": [
+330,
+580
+]
+}
+},
+{
+"text": "போர்க்களத்தில் தம்பியின் உடலைக் கண்டு இந்திரசித்து சோகமும் சினமும் கொண்டான்.",
+"spec": {
+"bg": "battle",
+"figs": [
+"indrajit:chest:sad"
+],
+"tm": "evening",
+"xs": [
+400
+]
+}
+},
+{
+"text": "இந்திரசித்தைக் கண்ட அனுமன் சிந்தித்தான். பின் அரக்கர் படையுடன் போரிட்டு அதை அழித்தான்.",
+"spec": {
+"bg": "battle",
+"figs": [
+"demon:raise:stern",
+"hanuman:raise:stern",
+"demon:draw:stern"
+],
+"xs": [
+170,
+400,
+630
+]
+}
+},
+{
+"text": "இந்திரசித்தும் அனுமனும் பலவகையாகப் பொருதனர்.",
+"spec": {
+"bg": "battle",
+"figs": [
+"indrajit:draw:stern",
+"hanuman:raise:stern"
+],
+"xs": [
+260,
+540
+],
+"props": [
+[
+"arrows",
+400,
+190
+]
+]
+}
+},
+{
+"text": "இறுதியில் இந்திரசித்து பிரமனின் படைக்கலத்தை ஏவினான். அதற்கு மதிப்பளித்த அனுமன் கட்டுண்டு நின்றான்.",
+"spec": {
+"bg": "battle",
+"figs": [
+"indrajit:draw:stern",
+"hanuman:chest"
+],
+"tm": "evening",
+"xs": [
+260,
+540
+],
+"props": [
+[
+"arrows",
+400,
+190
+]
+]
+}
+},
+{
+"text": "அரக்கர் அனுமனைச் சூழ்ந்து ஆரவாரித்தனர். இலங்கை மக்கள் மகிழ்ந்தனர்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demon:raise:happy",
+"hanuman:chest",
+"demon:raise:happy"
+],
+"xs": [
+170,
+400,
+630
+]
+}
+}
+]
+}

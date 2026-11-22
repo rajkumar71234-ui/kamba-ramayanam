@@ -1,0 +1,71 @@
+{
+"scenes": [
+{
+"text": "மகுடம் இழந்த மானத்தால் வருந்திய இராவணன் துயில முயன்றான். சார்த்தூலன் என்ற ஒற்றன் வந்து வானரப் படையின் நிலையைச் சொன்னான்.",
+"spec": {
+"bg": "room",
+"figs": [
+"demon:speak",
+"ravana:think:sit"
+],
+"tm": "night",
+"xs": [
+300,
+520
+]
+}
+},
+{
+"text": "இராவணன் அமைச்சரோடு ஆராய்ந்தான். நிகும்பன் பகைவரை இகழ்ந்து பேசினான். தாய்மாமன் மாலி அறிவுரை கூற, இராவணன் அவனை அடக்கினான்.",
+"spec": {
+"bg": "court",
+"figs": [
+"demon:raise:stern",
+"ravana:stern:sit",
+"demon:speak"
+]
+}
+},
+{
+"text": "இராவணன் சேனையை அணிவகுக்க ஆணையிட்டான். விருபாக்கன் முதலிய படைத்தலைவர்கள் வாயில்தோறும் நின்றனர்.",
+"spec": {
+"bg": "lanka_city",
+"figs": [
+"demon:stern",
+"demon:stern",
+"demon:stern",
+"demon:stern"
+]
+}
+},
+{
+"text": "இரவு நீங்கக் கதிரவன் தோன்றினான். வானர சேனை இலங்கையை வளைத்தது.",
+"spec": {
+"bg": "lanka",
+"figs": [
+"vanara:raise",
+"vanara:raise",
+"vanara:raise"
+],
+"tm": "dawn",
+"xs": [
+100,
+220,
+340
+]
+}
+},
+{
+"text": "அரக்கர் சேனையையும் வானர சேனை வளைத்து நின்றது.",
+"spec": {
+"bg": "battle",
+"figs": [
+"vanara:raise:stern",
+"vanara:raise:stern",
+"demon:stern",
+"demon:stern"
+]
+}
+}
+]
+}

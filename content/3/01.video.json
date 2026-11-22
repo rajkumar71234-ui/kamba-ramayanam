@@ -1,0 +1,126 @@
+{
+"scenes": [
+{
+"text": "ஆரணிய காண்டம் கடவுள் வாழ்த்துடன் தொடங்குகிறது. இராமன், சீதை, இலக்குவன் மூவரும் அத்திரி முனிவரின் ஆசிரமத்தை அடைந்து அவரை வணங்கினர்.",
+"spec": {
+"bg": "ashram",
+"figs": [
+"sage:bless",
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit:namaste"
+],
+"xs": [
+160,
+340,
+490,
+640
+]
+}
+},
+{
+"text": "பின் மூவரும் அடர்ந்த தண்டக வனத்துள் புகுந்தனர்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"lakshmana_hermit:walk",
+"sita_hermit:walk",
+"rama_hermit:walk"
+],
+"xs": [
+220,
+400,
+580
+]
+}
+},
+{
+"text": "அப்போது விராதன் என்னும் கொடிய அரக்கன் எதிர்ப்பட்டு, சீதையைப் பற்றித் தூக்கிச் சென்றான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+[
+"viradha",
+470,
+486,
+1.9,
+"raise",
+"stern",
+false
+],
+"sita_hermit:raise:wonder"
+],
+"tm": "storm",
+"xs": [
+470,
+650
+]
+}
+},
+{
+"text": "இராமனும் இலக்குவனும் அம்புகளால் அவனுடன் பொருதனர். பின் வாள் கொண்டு அவன் தோள்கள் இரண்டையும் துணித்தனர்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"rama_hermit:draw:stern",
+"lakshmana_hermit:draw:stern",
+[
+"viradha",
+560,
+486,
+1.8,
+"raise",
+"sad",
+false
+]
+],
+"xs": [
+180,
+330,
+560
+],
+"props": [
+[
+"arrows",
+400,
+190
+]
+]
+}
+},
+{
+"text": "வீழ்ந்த விராதன் இராமனே பரம்பொருள் என்று உணர்ந்து அவனைத் துதித்தான். சாபத்தால் அரக்கனான தன் வரலாற்றைச் சொல்லி, உயிர் நீத்து உயர்ந்த நிலை அடைந்தான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"rama_hermit:bless",
+"lakshmana_hermit",
+"viradha:namaste:happy"
+],
+"tm": "divine",
+"xs": [
+260,
+420,
+600
+]
+}
+},
+{
+"text": "பின் மூவரும் முனிவர்கள் வாழும் சோலையை அடைந்தனர்.",
+"spec": {
+"bg": "ashram",
+"figs": [
+"rama_hermit:walk",
+"sita_hermit:walk",
+"lakshmana_hermit:walk"
+],
+"tm": "evening",
+"xs": [
+250,
+420,
+590
+]
+}
+}
+]
+}

@@ -1,0 +1,88 @@
+{
+"scenes": [
+{
+"text": "இராமன் சீதையோடும் இலக்குவனோடும் கானகத்தில் சென்றான். வழியிடைக் காட்சிகளைக் கண்டு மூவரும் மகிழ்ந்தனர்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"rama_hermit:point:happy",
+"sita_hermit:happy",
+"lakshmana_hermit"
+],
+"xs": [
+250,
+410,
+570
+],
+"props": [
+[
+"deer",
+680,
+470,
+0.7
+]
+]
+}
+},
+{
+"text": "மூவரும் கங்கைக் கரையை அடைந்தனர். முனிவர்கள் அவர்களைக் காண வந்து, தம் தவச்சாலைக்கு அழைத்துச் சென்று உபசரித்தனர்.",
+"spec": {
+"bg": "ganga",
+"figs": [
+"sage:bless",
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit:namaste"
+],
+"xs": [
+170,
+350,
+500,
+650
+]
+}
+},
+{
+"text": "முனிவர்கள் வேண்ட, இராமன் சீதையோடு கங்கையில் நீராடினான்.",
+"spec": {
+"bg": "ganga",
+"figs": [
+"rama_hermit:namaste:happy",
+"sita_hermit:namaste:happy"
+],
+"xs": [
+330,
+490
+]
+}
+},
+{
+"text": "பின் எரி வளர்த்து வழிபட்டு, முனிவர்கள் அளித்த விருந்தை ஏற்றான்.",
+"spec": {
+"bg": "ashram",
+"figs": [
+"rama_hermit:namaste",
+"sage:offer:happy"
+],
+"xs": [
+300,
+510
+],
+"props": [
+[
+"fire",
+400,
+486,
+0.7
+],
+[
+"leaf_meal",
+560,
+486,
+0.8
+]
+]
+}
+}
+]
+}

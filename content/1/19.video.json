@@ -1,0 +1,94 @@
+{
+"scenes": [
+{
+"text": "தயரதன் வருகையை அறிந்த சனகன் தன் படையுடன் எதிர்கொண்டு வந்தான். இரு மன்னர்களின் சேனைகளும் ஒன்று கலந்தபோது, கடலில் ஆறு பாய்வது போன்ற பேராரவாரம் எழுந்தது.",
+"spec": {
+"bg": "forest",
+"figs": [
+"soldier:raise",
+"janaka:walk",
+"soldier:raise"
+],
+"xs": [
+180,
+360,
+540
+],
+"back": [
+[
+"elephant",
+680,
+460,
+0.8
+]
+]
+}
+},
+{
+"text": "சனகனைத் தயரதன் அன்புடன் தழுவிக்கொண்டான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"janaka:hug",
+"dasaratha:hug:flip"
+],
+"xs": [
+340,
+470
+]
+}
+},
+{
+"text": "பின்னர் இராமன் வந்தான். பணிந்த இராம இலக்குவரைத் தழுவிக்கொண்ட தயரதன் மகிழ்ச்சிக் கடலில் மூழ்கினான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"dasaratha:hug:happy",
+"rama:hug:flip",
+"lakshmana:namaste"
+],
+"xs": [
+330,
+460,
+620
+]
+}
+},
+{
+"text": "இராமன் தாயரை வணங்கினான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"kausalya:bless:happy",
+"kaikeyi:bless:happy",
+"sumitra:bless:happy",
+"rama:namaste"
+]
+}
+},
+{
+"text": "தன்னைத் தொழுத பரதனை இராமன் தழுவிக்கொண்டான். நால்வரும் ஒருங்கே நின்ற காட்சி கண்டோர் கண்களுக்கு விருந்தாக இருந்தது.",
+"spec": {
+"bg": "forest",
+"figs": [
+"rama:happy",
+"lakshmana:happy",
+"bharata:happy",
+"shatrughna:happy"
+]
+}
+},
+{
+"text": "தந்தை தந்த பணியை ஏற்று, தம்பியர் மூவரும் தொடர, இராமன் மிதிலை நகர வீதிக்குள் வந்தான்.",
+"spec": {
+"bg": "street",
+"figs": [
+"lakshmana:walk",
+"rama:walk",
+"bharata:walk",
+"shatrughna:walk"
+]
+}
+}
+]
+}

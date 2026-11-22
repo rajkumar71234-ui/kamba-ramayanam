@@ -36,6 +36,17 @@ FONT_SANS = Path.home() / '.fonts' / 'NotoSansTamil-Regular.ttf'
 CAP_SIZE = 36
 CAP_MAX_W = W - 2 * 70
 
+# tools/pronounce.json: {"written word": "spelling the voice says it right with"}
+_PRON = Path(__file__).resolve().parent / 'pronounce.json'
+PRONOUNCE = {}
+
+
+def load_pronounce():
+    """Re-read the list before every video, so a fix applies to the next render without a restart."""
+    PRONOUNCE.clear()
+    if _PRON.exists():
+        PRONOUNCE.update(json.loads(_PRON.read_text(encoding='utf-8')))
+
 KANDAM_TA = {1: 'பால காண்டம்', 2: 'அயோத்தியா காண்டம்', 3: 'ஆரணிய காண்டம்', 4: 'கிட்கிந்தா காண்டம்',
              5: 'சுந்தர காண்டம்', 6: 'யுத்த காண்டம்'}
 
@@ -52,6 +63,8 @@ class Voice:
         self.model.eval()
 
     def say(self, text, seed=0):
+        for word, spoken in PRONOUNCE.items():        # how the voice should say a word (captions keep the spelling)
+            text = text.replace(word, spoken)
         text = re.sub(r'[“”‘’"\'`*()\[\]—–-]', ' ', text)
         text = re.sub(r'\s+', ' ', text).strip()
         if not re.search(r'[஀-௿]', text):
@@ -164,6 +177,7 @@ def svg_to_png(svg_path, png_path, w, h):
 
 # ---------------------------------------------------------------- one padalam
 def make(k, pp, voice, keep=False):
+    load_pronounce()
     src = ROOT / 'content' / str(k) / f'{pp:02d}.video.json'
     ta = json.loads((ROOT / 'content' / str(k) / f'{pp:02d}.ta.json').read_text(encoding='utf-8'))
     spec = json.loads(src.read_text(encoding='utf-8'))

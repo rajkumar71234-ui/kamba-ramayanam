@@ -1,0 +1,96 @@
+{
+"scenes": [
+{
+"text": "இராமன் தம்பியரோடு அரசக் கோலம் கொண்டு, அயோத்தி நகருக்குள் புகுந்தான். வீடணன் முதலியோரும் உடன் சென்றனர்; சீதா பிராட்டியும் பயணம் செய்தாள்.",
+"spec": {
+"bg": "street",
+"figs": [
+"bharata:walk",
+"rama:bless",
+"lakshmana:walk",
+"shatrughna:walk"
+],
+"back": [
+[
+"elephant",
+650,
+460,
+0.7
+]
+]
+}
+},
+{
+"text": "இராமன் அரண்மனை அடைந்தான். நகர மாந்தர் பெருமகிழ்ச்சியுடன் வரவேற்றனர்; நகரம் அணி செய்யப்பட்டது.",
+"spec": {
+"bg": "city",
+"figs": [
+"man:raise:happy",
+"woman:raise:happy",
+"man:wave:happy"
+],
+"props": [
+[
+"garland",
+400,
+100,
+1.0
+]
+]
+}
+},
+{
+"text": "இராமன் புனித நீராடினான். அரியணையை அனுமன் தாங்க, அங்கதன் உடைவாள் ஏந்த, பரதன் வெண்குடை பிடிக்க, இலக்குவனும் சத்துருக்கனனும் கவரி வீசினர்.",
+"spec": {
+"bg": "court",
+"figs": [
+"hanuman:namaste",
+"lakshmana:wave",
+"rama:bless:sit",
+"shatrughna:wave",
+"angada:namaste"
+],
+"props": [
+[
+"umbrella",
+"above:2",
+0.8
+]
+]
+}
+},
+{
+"text": "வசிட்ட முனிவன் இராமனுக்குத் திருமுடி சூட்டினான். உலகம் முழுவதும் மகிழ்ந்தது.",
+"spec": {
+"bg": "court",
+"figs": [
+"vasishtha:bless",
+"rama:bless:happy:sit",
+"sita:happy:sit"
+],
+"props": [
+[
+"flowers",
+400,
+110,
+1.0
+]
+]
+}
+},
+{
+"text": "பரதனுக்கு இளவரசுப் பட்டம் சூட்டப்பட்டது.",
+"spec": {
+"bg": "court",
+"figs": [
+"rama:bless:sit",
+"bharata:namaste:happy"
+],
+"xs": [
+320,
+540
+]
+}
+}
+]
+}

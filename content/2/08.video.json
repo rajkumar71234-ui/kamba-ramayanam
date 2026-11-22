@@ -1,0 +1,80 @@
+{
+"scenes": [
+{
+"text": "இராமன் சித்திரகூட மலையின் இயற்கை அழகுகளைச் சீதைக்குக் காட்டி மகிழ்ந்தான்.",
+"image": "chapter.svg"
+},
+{
+"text": "அங்கு வாழ்ந்த அந்தணர்களின் விருந்தினனாக இராமன் தங்கினான். அந்தி நேரம் வர, மூவரும் மாலை வழிபாடு செய்தனர்.",
+"spec": {
+"bg": "ashram",
+"figs": [
+"rama_hermit:namaste",
+"sita_hermit:namaste",
+"lakshmana_hermit:namaste"
+],
+"tm": "evening",
+"xs": [
+250,
+410,
+570
+]
+}
+},
+{
+"text": "இலக்குவன் அழகிய ஒரு குடிலை அமைத்தான். இராமன் சீதையோடு அதில் குடிபுகுந்தான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"lakshmana_hermit:point:happy",
+"rama_hermit:happy",
+"sita_hermit:happy"
+],
+"xs": [
+230,
+410,
+570
+],
+"props": [
+[
+"tent",
+640,
+470,
+0.9
+]
+]
+}
+},
+{
+"text": "குடில் அமைத்த இலக்குவனை நினைந்து, “உனக்கு இத்துன்பம் நேர்ந்ததே” என்று இராமன் நெகிழ்ந்தான். இலக்குவன் மறுமொழி கூற, இராமன் ஆறுதல் அடைந்தான்.",
+"spec": {
+"bg": "forest",
+"figs": [
+"rama_hermit:hug",
+"lakshmana_hermit:hug:flip"
+],
+"tm": "evening",
+"xs": [
+340,
+470
+]
+}
+},
+{
+"text": "இராமன் நோன்பு நோற்று, சீதையோடும் இலக்குவனோடும் அங்கே இனிதாக வாழ்ந்தான்.",
+"spec": {
+"bg": "mountain",
+"figs": [
+"rama_hermit:bless:happy",
+"sita_hermit:happy",
+"lakshmana_hermit:happy"
+],
+"xs": [
+260,
+420,
+580
+]
+}
+}
+]
+}
