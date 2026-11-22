@@ -132,6 +132,7 @@ h2.section { font-family: var(--ta-serif); font-size: 1.3rem; color: var(--accen
 figure { margin: 0; }
 .hero-fig { overflow: hidden; }
 .hero-fig img { width: 100%; }
+.hero-fig video { width: 100%; height: auto; display: block; aspect-ratio: 16 / 10; background: #1d2a33; }
 figcaption { font-size: .9rem; color: var(--muted); padding: 8px 14px 10px; line-height: 1.6; }
 
 .story { padding: 6px 18px 12px; margin-top: 16px; }

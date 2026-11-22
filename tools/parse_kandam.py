@@ -395,8 +395,8 @@ def parse(k):
                 if not txt:
                     continue
                 flush_quote()
-                if kind == 'text':
-                    if (para is None or para.get('head') or para['sec'] != s or d['x0'] > 75 or
+                if kind == 'text':      # the end of the paragraph above: it goes on in the same paragraph
+                    if (para is None or para.get('head') or para['sec'] != s or
                             (prev is not None and prev['page'] == d['page'] and d['y'] - prev['y'] > 20)):
                         flush_para()
                         para = {'sec': s, 'poem': owner, 'parts': []}

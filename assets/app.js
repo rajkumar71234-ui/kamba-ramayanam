@@ -264,8 +264,12 @@
       '<header class="chap-head"><div class="eyebrow">' + esc(kd.ta) + " · " + esc(label) +
       " · பாடல் " + d.from + "–" + d.to + " (" + poems.length + ")</div><h1>" + esc(d.title) + "</h1>" +
       (d.subtitle ? '<p class="sub">' + esc(d.subtitle) + "</p>" : "") + "</header>" +
-      '<figure class="card hero-fig"><img src="' + esc(d.chapter_image.src) + '" alt="' + esc(d.chapter_image.alt) +
-      '" width="800" height="500"><figcaption>' + esc(d.chapter_image.alt) + "</figcaption></figure>" +
+      (d.video
+        ? '<figure class="card hero-fig hero-video"><video id="padVideo" controls playsinline preload="none" poster="' +
+          esc(d.video.poster) + '" src="' + esc(d.video.src) + '" width="1280" height="800"></video>' +
+          '<figcaption>▶ இந்தப் படலத்தின் கதை — காணொளி</figcaption></figure>'
+        : '<figure class="card hero-fig"><img src="' + esc(d.chapter_image.src) + '" alt="' + esc(d.chapter_image.alt) +
+          '" width="800" height="500"><figcaption>' + esc(d.chapter_image.alt) + "</figcaption></figure>") +
       '<section class="card story"><div class="story-head"><h2>கதைச் சுருக்கம்</h2>' +
       (Speech.ok ? '<button type="button" class="listen" id="listenStory">' + ICON.speaker + "கேட்க</button>" : "") + "</div>" +
       d.story.map(function (p, i) { return '<p id="sp' + i + '">' + esc(p) + "</p>"; }).join("") + "</section>";
@@ -409,6 +413,9 @@
     return base + "கணினியில் Microsoft Edge உலாவியில் திறந்தால் தமிழ்க் குரல் கிடைக்கும்.";
   }
 
+  document.addEventListener("play", function (e) {
+    if (e.target && e.target.tagName === "VIDEO" && typeof Player !== "undefined") Player.stop();
+  }, true);
   var Player = (function () {
     var st = { items: [], groups: [], i: 0, playing: false, paused: false, cur: null, title: "", errors: 0, note: "", mode: "", lastG: -1 };
     var bar = null;
@@ -540,6 +547,8 @@
     }
 
     function start(mode, d, fromGroup) {
+      var vids = document.querySelectorAll("video");
+      for (var vi = 0; vi < vids.length; vi++) if (!vids[vi].paused) vids[vi].pause();
       if (!Speech.ok) return;
       ensureBar();
       cancelNow();

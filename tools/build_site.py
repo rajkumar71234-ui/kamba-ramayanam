@@ -67,6 +67,8 @@ def build_padalam(k, n, errors):
         'subtitle': ta.get('subtitle', ''), 'summary': ta.get('summary', ''),
         'story': ta['story'],
         'chapter_image': {'src': img_base + ta['chapter_image']['file'], 'alt': ta['chapter_image']['alt']},
+        'video': ({'src': img_base + 'video.mp4', 'poster': img_base + 'poster.jpg'}
+                  if (ROOT / img_base / 'video.mp4').exists() else None),
         'scenes': scenes,
         'intro': src['intro'],
         'items': items,
