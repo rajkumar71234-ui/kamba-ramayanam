@@ -79,6 +79,11 @@ python3 tools/art_scenes.py 2           # padalam pictures from tools/scene_spec
 python3 tools/thumbs.py 2               # a picture beside every poem
 ```
 
+`tools/pad_notes.py` (used by `build_site.py`) puts the பதவுரை / விளக்கம் boundary where the meaning of the last
+bold word ends: the PDFs often print the விளக்கம் straight on in the same paragraph, or carry the பதவுரை over a page
+break. No words are added, dropped or reordered; a check of every PDF line against `data/` finds them all on the site.
+For kandams 2–6 the punctuation is kept exactly as printed.
+
 `parse_kandam.py` takes the padalams from each PDF's table of contents, follows the running poem numbers (a misprinted
 or missing number does not stop it), puts the கடவுள் வாழ்த்து at the head of padalam 1, and lifts the sub-headings and
 metre names printed just above a poem out of the previous poem's notes. `art_scenes.py` draws each padalam picture
@@ -97,4 +102,4 @@ details in the same cartoon style as the padalam pictures. A few well-known poem
 ## Credits
 
 - Poems, பதவுரை and விளக்கம்: from the annotated edition in the source PDFs; poem numbers follow it.
-- Story summaries and pictures: written and drawn fresh for this site. Found a mistake? Use the “பிழை தெரிவிக்க” link under any poem.
+- Story summaries and pictures: written and drawn fresh for this site.

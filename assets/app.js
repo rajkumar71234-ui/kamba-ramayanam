@@ -84,12 +84,6 @@
   function kandamLink(kd) { return "#" + kd.slug; }
   function padalamLink(kd, n, p) { return "#" + kd.slug + "-" + n + (p ? "-p" + p : ""); }
   function padalamLabel(pd) { return pd.n === 0 ? "பாயிரம்" : "படலம் " + pd.n; }
-  function issueUrl(title, body) {
-    var repo = META.site && META.site.repo;
-    if (!repo) return null;
-    return "https://github.com/" + repo + "/issues/new?title=" + encodeURIComponent(title) +
-      "&body=" + encodeURIComponent(body);
-  }
   function showError(msg) {
     app.innerHTML = '<div class="card error">பக்கத்தை ஏற்ற முடியவில்லை. ' + esc(msg) +
       ' <br><a href="#home">முகப்புக்குத் திரும்பு</a></div>';
@@ -217,8 +211,6 @@
   // One poem: its picture (right), number and ▶ button, the verse, then its விளக்கம்,
   // and below that the word-by-word பதவுரை, folded away until it is opened.
   function poemHtml(kd, d, it, metre) {
-    var rep = issueUrl("பிழை: " + kd.ta + " பாடல் " + it.n,
-      kd.ta + ", " + d.title + ", பாடல் " + it.n + "\n\nஎன்ன பிழை? (பாடல் / பதவுரை / விளக்கம் / ஓவியம்):\n\n");
     var lines = it.lines.map(function (l) { return '<span class="line">' + esc(l) + "</span>"; }).join("");
     var play = Speech.ok ? ' data-play="' + it.n + '"' : "";
     var vil = "";
@@ -239,8 +231,7 @@
       (metre ? '<span class="metre">' + esc(metre) + "</span>" : "") + "</div>" +
       '<p class="verse' + (it.lines.length === 8 ? " eight" : "") + '"' + play + ">" + lines + "</p>" +
       vil +
-      '<div class="vtools"><button type="button" data-copy="' + it.n + '">இணைப்பை நகலெடு</button>' +
-      (rep ? '<a href="' + rep + '" target="_blank" rel="noopener">பிழை தெரிவிக்க</a>' : "") + "</div></article>";
+      '<div class="vtools"><button type="button" data-copy="' + it.n + '">இணைப்பை நகலெடு</button>' + "</div></article>";
   }
 
   // Put every item (sub-heading, metre, poem) into the scene of the poem it leads to.

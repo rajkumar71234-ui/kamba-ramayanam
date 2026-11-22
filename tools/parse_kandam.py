@@ -17,7 +17,17 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from parse_pdf import (line_text, runs_markup, tidy_markup, fix_poem_punct, fix_prose_punct, METER_RE)
+from parse_pdf import (line_text, runs_markup, tidy_markup, METER_RE)
+
+
+# பால காண்டம்'s PDF prints '.' where the book has ',' and parse_pdf.py puts the commas back. These PDFs have the
+# book's own punctuation, so it is kept exactly as printed.
+def fix_poem_punct(lines):
+    return lines
+
+
+def fix_prose_punct(s):
+    return s
 
 ROOT = Path(__file__).resolve().parent.parent
 

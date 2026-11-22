@@ -14,6 +14,8 @@ Usage (from the repo root):  python3 tools/build_site.py
 import json
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pad_notes import rebalance
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_NOTE = ("பாடல்களும் பதவுரை, விளக்கமும்: கம்ப ராமாயணம் — {kandam}, உரையுடன் கூடிய பதிப்பு (மூல PDF). "
@@ -49,7 +51,8 @@ def build_padalam(k, n, errors):
     items = []
     for it in src['items']:
         if it['type'] == 'poem':
-            row = {'type': 'poem', 'n': it['n'], 'lines': it['lines'], 'pad': it['pad'], 'notes': it['notes']}
+            pad, notes = rebalance(it['pad'], it['notes'], k)
+            row = {'type': 'poem', 'n': it['n'], 'lines': it['lines'], 'pad': pad, 'notes': notes}
             pic = pics.get(str(it['n']))
             if pic and (ROOT / pic['pic']).exists():
                 row['pic'] = pic['pic']
