@@ -145,6 +145,146 @@ class _M:
         return self.g
 
 
+# ------------------------------------------------------------------ sub-headings and metre names before a poem
+TAMIL = re.compile(r'[஀-௿]')
+# a metre name at the end of a line: "கலிவிருத்தம்", "அறுசீர் ஆசிரிய விருத்தம்", "கலிநிலைத் துறை", "கொச்சகக் கலிப்பா" …
+METRE_TAIL = re.compile(
+    r'(?:\(\s*\d{1,3}\s*\)\s*|\d{1,3}\s*)?'
+    r'((?:\(வேறு\)\s*)?'
+    r'(?:(?:அறு|எழு|எண்|ஐ|நால்|பதின்|பன்னிரு|பதினான்கு)சீர்(?:க்|ச்)?\s*(?:கழிநெடிலடி\s*)?)?'
+    r'(?:ஆசிரிய(?:ச்)?\s*)?(?:சந்த(?:க்)?\s*)?'
+    r'(?:(?:கலி(?:நிலைத்?|த்)?|வஞ்சி(?:த்)?|கொச்சகக்?|கட்டளைக்?|முடுகு|நேரிசை|இன்னிசை|தரவு)\s*)*'
+    r'(?:விருத்தம்|துறை|கலிப்பா|தாழிசை|வெண்பா|கலி)'
+    r'(?:\s*\(\s*வேறு[^()]{0,12}\)|\s+வேறு(?:\s*வகை)?)?)\s*$')
+# a metre name first, then a sub-heading: "கலி விருத்தம் (வேறு வகை) இராமன் அம்பு மதில் அமைத்தல்"
+METRE_HEAD = re.compile(METRE_TAIL.pattern[:-len(r'\s*$')] + r'\s+(\S.*)$')
+# "(வேறு)", "வேறு", "(வேறு வகை)": the metre changes (its name is not printed)
+VERU_RE = re.compile(r'^\(?\s*வேறு(?:\s*வகை)?\s*\)?$')
+# the last word of a sentence in the notes, not of a sub-heading
+SENT_END = re.compile(r'(?:உளது|உள்ளது|என்பர்|என்க|ஆகும்|என்றார்|என்றான்|என்றாள்|எனப்பட்டது|பட்டது|படுகிறது|பட்டுள்ளது|தக்கது|'
+                      r'காணலாம்|கூறினார்|குறிப்பு|அறிக|உணர்க|காண்க|கொள்க|போலும்|இல்லை|உண்டு|பொருந்தும்|வேண்டும்|அன்று|'
+                      r'ஆயிற்று|என்பது|என்னும்|எனலாம்|ஆகலாம்|கூறுவர்|என்ப|பெற்றது|பெற்றன|பெறும்)$')
+NOTE_WORDS = re.compile(r'(?:^|\s)(?:உம்மை|ஈற்றசை|அசைநிலை|அசை|அணி|என்பதில்|பாடலில்|இப்பாடலில்|இதில்|ஈண்டு|எனவே)(?:\s|$)')
+METRE_OK = re.compile(r'சீர்|ஆசிரிய|சந்த|கலி|வஞ்சி|கொச்சக|கட்டளை|வெண்பா|தாழிசை')
+HEAD_TERM = ('.', '?', '!', ',', ';', ':', '’', '”', ')', "'", '"', '-', '–')
+
+
+def split_metre(text):
+    """(text before, metre name) when the text ends with the name of a metre, else (text, None)."""
+    plain = text.replace('*', '').rstrip()
+    m = METRE_TAIL.search(plain)
+    if not m or not METRE_OK.search(m.group(1)) or (re.search(r'கலி(?:\s*\(.*\)|\s+வேறு.*)?$', m.group(1)) and 'கொச்சக' not in m.group(1)
+                                                   and not re.search(r'(விருத்தம்|துறை|கலிப்பா)', m.group(1))):
+        return text, None
+    if m.start() > 0 and TAMIL.match(plain[m.start() - 1]):
+        return text, None                     # the match starts inside a word
+    return plain[:m.start()].rstrip(), re.sub(r'\s+', ' ', m.group(1)).strip()
+
+
+def heading_like(t, min_words=2, max_words=12):
+    """(ok, cleaned) — could this short text be a sub-heading such as "இராமன் சீதைக்குச் சித்திரகூடத்தைக் காட்டுதல்"?"""
+    t = re.sub(r'\s+', ' ', re.sub(r'^\(?\d{1,3}\)?\s+', '', t.replace('*', '').replace('◌', '').strip())).strip()
+    w = t.split()
+    ok = (bool(t) and len(t) <= 80 and min_words <= len(w) <= max_words and not t.endswith(HEAD_TERM) and
+          ' - ' not in t and ';' not in t and ':' not in t and not re.search(r'\d', t) and bool(TAMIL.search(t))
+          and not SENT_END.search(t) and not NOTE_WORDS.search(t))
+    return ok, t
+
+
+BREAK_RE = re.compile(r'\s{4,}|\(\d{1,3}\)\s*|(?:^|(?<=\s))\d{1,3}\s+|(?<=[.!?])(?![’\'”"?!.])\s*')
+
+
+def last_break(raw):
+    """(text before, text after, strong) for the last break inside a printed line — a wide gap, a note number
+    "(51)" or "84", or the end of a sentence. strong is False for a plain sentence end; (None…) when there is none."""
+    s = raw.rstrip()
+    best = None
+    for m in BREAK_RE.finditer(s):
+        if m.end() < len(s) and (m.end() > m.start() or m.start() > 0):
+            best = m
+    if best is None:
+        return None, s.strip(), None
+    g = best.group(0)
+    strong = len(g) >= 4 and not g.strip() or bool(re.search(r'\d', g)) or (best.start() == 0 and len(g) >= 4) or g.startswith('  ')
+    return s[:best.start()].strip(), s[best.end():].strip(), strong
+
+
+def raw_text(d):
+    return ''.join(t for t, b in d['runs']).replace(' ◌', '').replace('◌', '')
+
+
+def find_heads(L, starts):
+    """Sub-headings and metre names printed in 14 pt just above a poem. Left alone they would end up in the
+    notes of the poem before (or the padalam's introduction). Returns {line index: [(kind, text), ...]} with
+    kind 'text' (stays in the notes), 'head' or 'metre'."""
+    out = {}
+
+    def nonempty_before(i):
+        j = i - 1
+        while j >= 0 and not line_text(L[j]):
+            j -= 1
+        return j
+
+    def gap_ok(j, nxt):
+        a, b = L[j], L[nxt]
+        return b['page'] != a['page'] or b['y'] - a['y'] >= 20
+
+    def try_heading(j, nxt):
+        """Mark line j (just above line nxt) as a heading if it looks like one; True if marked."""
+        d = L[j]
+        if d['size'] >= 15 or not gap_ok(j, nxt):
+            return False
+        raw = raw_text(d)
+        pre, tail, strong = last_break(raw)
+        p = nonempty_before(j)
+        above = L[p] if p >= 0 else None
+        gap_above = above is None or above['page'] != d['page'] or d['y'] - above['y'] >= 20
+        indented = len(raw) - len(raw.lstrip(' ')) >= 4
+        prev_num = above is not None and re.search(r'(?:^|\s)\(?\d{1,3}\)?\s*$', line_text(above)) is not None
+        ok, head = heading_like(tail)
+        # a heading wrapped over two lines: "… கூறப்பெறுவன. தயரதன் மந்திராலோசனை" / "மண்டபத்தை அடைதல்"
+        if above is not None and above['page'] == d['page'] and d['y'] - above['y'] < 20 and strong is None:
+            ok_short, short = heading_like(line_text(d), min_words=1, max_words=6)
+            a_pre, a_tail, a_strong = last_break(raw_text(above))
+            if ok_short and a_strong is not None and (a_strong or d['x0'] >= 120):
+                ok2, both = heading_like(a_tail + ' ' + short)
+                ok_t, _ = heading_like(a_tail, min_words=1)
+                if ok2 and ok_t:
+                    out[p] = [('text', a_pre), ('head', both)]
+                    out[j] = []
+                    return True
+        if not ok:
+            return False
+        if strong or (strong is None and (d['x0'] >= 80 or indented or gap_above or prev_num)) or \
+                (strong is False and gap_above):
+            out[j] = ([('text', pre)] if pre else []) + [('head', head)]
+            return True
+        return False
+
+    for i in sorted(starts):
+        j = nonempty_before(i)
+        if j < 0 or L[j]['size'] >= 15:
+            continue
+        pre, metre = split_metre(raw_text(L[j]))
+        if metre:
+            segs = []
+            if pre.strip():
+                b_pre, b_tail, b_strong = last_break(pre)
+                ok, head = heading_like(b_tail)
+                if ok and b_strong is not False:
+                    segs = ([('text', b_pre)] if b_pre else []) + [('head', head)]
+                else:
+                    segs = [('text', pre.strip())]
+            out[j] = segs + [('metre', metre)]
+            if not pre.strip():
+                k = nonempty_before(j)
+                if k >= 0:
+                    try_heading(k, j)
+        else:
+            try_heading(j, i)
+    return out
+
+
 def parse(k):
     cfg = KANDAMS[k]
     L, secs = load(k)
@@ -160,6 +300,7 @@ def parse(k):
 
     sections = [{'id': i, 'title': t, 'start_page': p, 'items': [], 'intro': []} for i, (t, p) in enumerate(secs)]
     starts_at, expect, missing, misprints = find_starts(L, cfg)
+    overrides = find_heads(L, starts_at)
     cur_poem = None
     para = None
     quote = None
@@ -237,6 +378,25 @@ def parse(k):
         if cur_poem:
             cur_poem['in_poem'] = False
         owner = cur_poem if (cur_poem and cur_poem['sec'] == s) else None
+        if idx in overrides:
+            # a line holding a sub-heading or a metre name (perhaps after the last words of a note)
+            for kind, txt in overrides[idx]:
+                txt = re.sub(r'\s+', ' ', txt).strip()
+                if not txt:
+                    continue
+                flush_quote()
+                if kind == 'text':
+                    if (para is None or para.get('head') or para['sec'] != s or d['x0'] > 75 or
+                            (prev is not None and prev['page'] == d['page'] and d['y'] - prev['y'] > 20)):
+                        flush_para()
+                        para = {'sec': s, 'poem': owner, 'parts': []}
+                    para['parts'].append(txt)
+                else:
+                    flush_para()
+                    para = {'sec': s, 'poem': owner, 'parts': [txt], 'head': True}
+                    flush_para()
+            prev = d
+            continue
         if big and not bold and len(t) < 70 and ' - ' not in t:
             # 16 pt plain lines are the sub-headings in these PDFs
             flush_para(); flush_quote()
@@ -291,6 +451,9 @@ def finish(k, sections, expect):
                 limit_c, limit_w = (HEAD_MAX, 12) if styled else (48, 6)
                 looks = (len(plain) <= limit_c and len(words) <= limit_w and ' - ' not in plain and ';' not in plain
                          and plain.count('.') <= (1 if plain.endswith('.') else 0) and not re.fullmatch(r'[\d.\s()]+', plain))
+                if looks and not split_metre(plain)[1] and not VERU_RE.match(plain):
+                    bare = re.sub(r'^\(?\d{1,3}\)?\s*', '', plain).rstrip('.').strip()
+                    looks = not (SENT_END.search(bare) or NOTE_WORDS.search(bare) or re.search(r'\d', bare))
                 if looks:
                     moved.insert(0, re.sub(r'^\d+\s+', '', plain.replace(' ◌', '').replace('◌', '')).rstrip('.').strip())
                     holder.pop()
@@ -301,13 +464,26 @@ def finish(k, sections, expect):
             # a heading broken over two 16 pt lines comes out as two pieces: join them
             joined = []
             for h in moved:
-                if joined and not METER_RE.search(h) and not METER_RE.search(joined[-1]) and len(joined[-1]) + len(h) < HEAD_MAX and \
+                if joined and not split_metre(h)[1] and not split_metre(joined[-1])[1] and len(joined[-1]) + len(h) < HEAD_MAX and \
                         not joined[-1].endswith(('.', ':')):
                     joined[-1] = joined[-1] + ' ' + h
                 else:
                     joined.append(h)
             for h in joined:
-                items_out.append({'type': 'metre' if METER_RE.search(h) else 'heading', 'text': h})
+                head, metre = split_metre(h)
+                head = re.sub(r'^\(?\d{1,3}\)?\s*', '', head.replace('*', '')).strip()
+                mh = METRE_HEAD.match(head) if head else None
+                if mh and METRE_OK.search(mh.group(1)) and not split_metre(mh.group(1))[0].strip():
+                    head, metre = mh.group(2).strip(), re.sub(r'\s+', ' ', mh.group(1)).strip()
+                if head and VERU_RE.match(head):
+                    head, metre = '', head
+                if head and metre and not heading_like(head, min_words=1)[0] and holder is not sec['intro']:
+                    holder.append({'kind': 'p', 'text': head})     # the end of a note, not a heading
+                    head = ''
+                if head:
+                    items_out.append({'type': 'metre' if METER_RE.search(head) else 'heading', 'text': head})
+                if metre:
+                    items_out.append({'type': 'metre', 'text': metre})
             items_out.append({'type': 'poem', 'ref': p})
         sec['items'] = items_out
         for it in sec['items']:
@@ -343,6 +519,9 @@ def finish(k, sections, expect):
                        'pad': fix_prose_punct(pad), 'notes': notes, 'page': p['page']})
             del it['ref']
             total += 1
+        # the padalam's title broken over two lines comes out as a "quote" in the introduction: drop it
+        sec['intro'] = [q for q in sec['intro'] if not (q['kind'] == 'q' and (
+            norm(' '.join(q['lines'])) == norm(sec['title']) or not TAMIL.search(' '.join(q['lines']))))]
         sec['intro'] = [({'p': fix_prose_punct(q['text'])} if q['kind'] == 'p' else {'q': q['lines']}) for q in sec['intro']]
         built.append(sec)
     # the கடவுள் வாழ்த்து goes at the head of padalam 1

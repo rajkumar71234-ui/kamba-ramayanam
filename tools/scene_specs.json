@@ -596,5 +596,289 @@ false
 680
 ],
 "alt": "மயேந்திர மலையில் பேருருக் கொண்டு நிற்கும் அனுமன்; புகழ்ந்து நிற்கும் சாம்பவானும் அங்கதனும்"
+},
+"5-1": {
+"bg": "sky",
+"back": [
+[
+"sea_waves",
+null,
+390
+]
+],
+"figs": [
+[
+"hanuman",
+360,
+300,
+1.6,
+"raise",
+"happy",
+false
+]
+],
+"props": [
+[
+"mountain_held",
+640,
+330,
+1.4
+]
+],
+"alt": "தென்கடலின் மேல் வானில் பாயும் அனுமன்; கடலில் எழுந்து நிற்கும் மைந்நாக மலை"
+},
+"5-2": {
+"bg": "lanka_city",
+"tm": "night",
+"figs": [
+"hanuman:raise:stern",
+"demoness:raise:stern"
+],
+"xs": [
+290,
+520
+],
+"props": [
+[
+"moon",
+660,
+80,
+1
+]
+],
+"alt": "நிலவொளியில் இலங்கை நகர வாயிலில் அனுமனைத் தடுக்கும் காவல் தெய்வம்"
+},
+"5-3": {
+"bg": "asoka",
+"figs": [
+"sita_hermit:down:sad",
+"trijata:speak",
+"ravana:speak:flip"
+],
+"xs": [
+200,
+390,
+610
+],
+"alt": "அசோகவனத்தில் துயருற்றிருக்கும் சீதை; தேற்றும் திரிசடை; வேண்டி நிற்கும் இராவணன்"
+},
+"5-4": {
+"bg": "asoka",
+"figs": [
+"sita_hermit:offer:happy",
+"hanuman:give:flip"
+],
+"xs": [
+300,
+500
+],
+"props": [
+[
+"ring",
+400,
+250,
+0.8
+]
+],
+"alt": "அசோகவனத்தில் சீதையிடம் இராமனின் மோதிரத்தைத் தரும் அனுமன்"
+},
+"5-5": {
+"bg": "asoka",
+"figs": [
+"sita_hermit:give",
+"hanuman:namaste"
+],
+"xs": [
+300,
+500
+],
+"props": [
+[
+"chudamani",
+400,
+250,
+0.8
+]
+],
+"alt": "அசோகவனத்தில் தன் சூடாமணியை அனுமனிடம் தரும் சீதை"
+},
+"5-6": {
+"bg": "asoka",
+"figs": [
+"demoness:raise:wonder",
+[
+"hanuman",
+400,
+486,
+2.1,
+"raise",
+"stern",
+false
+],
+"demoness:raise:wonder"
+],
+"xs": [
+150,
+400,
+650
+],
+"alt": "அசோகவனத்தில் மரங்களைப் பிடுங்கி எறியும் அனுமன்; அஞ்சி ஓடும் அரக்கியர்"
+},
+"5-7": {
+"bg": "lanka_city",
+"figs": [
+"demon:raise:stern",
+[
+"hanuman",
+400,
+486,
+2.0,
+"raise",
+"stern",
+false
+],
+"demon:raise:stern"
+],
+"xs": [
+150,
+400,
+650
+],
+"alt": "இலங்கையில் கிங்கரர் படையை எதிர்த்துப் போரிடும் அனுமன்"
+},
+"5-8": {
+"bg": "battle",
+"figs": [
+"hanuman:raise:stern",
+"demon:draw:stern"
+],
+"xs": [
+230,
+560
+],
+"back": [
+[
+"chariot",
+590,
+470,
+1.0
+]
+],
+"alt": "தேரில் வந்து அம்பு தொடுக்கும் சம்புமாலியை எதிர்க்கும் அனுமன்"
+},
+"5-9": {
+"bg": "lanka_city",
+"tm": "evening",
+"figs": [
+"demon:raise:stern",
+"demon:draw:stern",
+"hanuman:raise:stern",
+"demon:draw:stern",
+"demon:raise:stern"
+],
+"alt": "ஐந்து அரக்கப் படைத் தலைவர்களுக்கு நடுவே போரிடும் அனுமன்"
+},
+"5-10": {
+"bg": "battle",
+"tm": "evening",
+"figs": [
+"demon:draw:stern",
+"hanuman:raise:stern"
+],
+"xs": [
+240,
+560
+],
+"back": [
+[
+"chariot",
+220,
+470,
+1.0
+]
+],
+"alt": "தேரில் வந்து போரிடும் அக்ககுமாரனை எதிர்க்கும் அனுமன்"
+},
+"5-11": {
+"bg": "battle",
+"figs": [
+"indrajit:draw:stern",
+"hanuman:chest"
+],
+"xs": [
+260,
+540
+],
+"props": [
+[
+"arrows",
+400,
+200
+]
+],
+"alt": "பிரமனின் படைக்கலத்தை ஏவும் இந்திரசித்து; கட்டுண்டு நிற்கும் அனுமன்"
+},
+"5-12": {
+"bg": "court",
+"figs": [
+"hanuman:speak",
+"ravana:point:stern:sit",
+"vibhishana:namaste"
+],
+"alt": "இராவணன் அவையில் அனுமன்; அரியணையில் சினந்து அமர்ந்த இராவணன்; தடுக்கும் வீடணன்"
+},
+"5-13": {
+"bg": "lanka_city",
+"tm": "night",
+"figs": [
+[
+"hanuman",
+400,
+470,
+1.8,
+"raise",
+"happy",
+false
+]
+],
+"props": [
+[
+"burning",
+170,
+330,
+1.0
+],
+[
+"burning",
+630,
+330,
+1.0
+]
+],
+"alt": "இரவில் தீப்பற்றி எரியும் இலங்கை நகரின் நடுவே வாலில் தீயுடன் நிற்கும் அனுமன்"
+},
+"5-14": {
+"bg": "mountain",
+"figs": [
+"lakshmana_hermit",
+"rama_hermit:offer:happy",
+"hanuman:give:flip",
+"sugriva:namaste"
+],
+"xs": [
+150,
+330,
+500,
+670
+],
+"props": [
+[
+"chudamani",
+415,
+250,
+0.8
+]
+],
+"alt": "சீதை தந்த சூடாமணியை இராமனிடம் தரும் அனுமன்; உடன் இலக்குவனும் சுக்கிரீவனும்"
 }
 }
